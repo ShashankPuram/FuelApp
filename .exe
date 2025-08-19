@@ -1,0 +1,2919 @@
+// in it the total 60500 is not  a debit but it is showing as debit the ledger is about what we got and what went out 
+
+// here no need to show about total bill 60500
+
+// just show only the money caaame in and came out to the customer 
+
+
+
+
+// i added two sales with 75500 and 60500
+
+// and paid some amount whilt buying those are 60000 and 50000 respectively so i have two dues
+
+// and those two paymnets with 60000 and 50000 i got into receipts and payments but when i paid 9500 in receipts and payments it is not reflected in the slaes tab and the sue is showing same in all the tabs in ledger and tranasctions.
+
+
+
+
+// import React, { useState, createContext, useContext, useMemo, useEffect } from 'react';
+
+// // --- NOTIFICATION SYSTEM ---
+// const NotificationContext = createContext();
+
+// const NotificationProvider = ({ children }) => {
+//     const [notification, setNotification] = useState(null);
+
+//     const showNotification = (message, type = 'info') => {
+//         setNotification({ message, type });
+//         setTimeout(() => {
+//             setNotification(null);
+//         }, 3000);
+//     };
+
+//     return (
+//         <NotificationContext.Provider value={{ showNotification }}>
+//             {children}
+//             {notification && (
+//                 <div className={`fixed bottom-5 right-5 p-4 rounded-lg shadow-lg text-white ${notification.type === 'error' ? 'bg-red-500' : 'bg-blue-500'}`}>
+//                     {notification.message}
+//                 </div>
+//             )}
+//         </NotificationContext.Provider>
+//     );
+// };
+
+// const useNotification = () => useContext(NotificationContext);
+
+
+// // --- SVG ICONS (Replaces lucide-react dependency) ---
+// const Icon = ({ children, size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{children}</svg>;
+// const PlusCircle = ({ size, className }) => <Icon size={size} className={className}><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></Icon>;
+// const FileDown = ({ size, className }) => <Icon size={size} className={className}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></Icon>;
+// const UserPlus = ({ size, className }) => <Icon size={size} className={className}><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="17" y1="11" x2="23" y2="11"></line></Icon>;
+// const Droplets = ({ size, className }) => <Icon size={size} className={className}><path d="M7 16.3c.5.5 1.2.7 2 .7 1.3 0 2.5-.5 3.5-1.5s1.5-2.2 1.5-3.5c0-.8-.2-1.5-.7-2-.5-.5-1.2-.7-2-.7-1.3 0-2.5.5-3.5 1.5S7 12.7 7 14c0 .8.2 1.5.7 2.3z"></path><path d="M22 12c-2.5-1.5-5-4-5-8A5 5 0 0 0 7 4c0 4-2.5 6.5-5 8"></path></Icon>;
+// const DollarSign = ({ size, className }) => <Icon size={size} className={className}><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></Icon>;
+// const BookOpen = ({ size, className }) => <Icon size={size} className={className}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></Icon>;
+// const Settings = ({ size, className }) => <Icon size={size} className={className}><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l-.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></Icon>;
+// const LogOut = ({ size, className }) => <Icon size={size} className={className}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></Icon>;
+// const FileText = ({ size, className }) => <Icon size={size} className={className}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></Icon>;
+// const Printer = ({ size, className }) => <Icon size={size} className={className}><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></Icon>;
+// const BarChart2 = ({ size, className }) => <Icon size={size} className={className}><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></Icon>;
+// const Briefcase = ({ size, className }) => <Icon size={size} className={className}><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></Icon>;
+// const Trash2 = ({ size, className }) => <Icon size={size} className={className}><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></Icon>;
+// const X = ({ size, className }) => <Icon size={size} className={className}><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></Icon>;
+
+// // --- MOCK DATA (for first-time use) ---
+// const initialStock = [ { id: 1, date: '2025-08-14', supplier: 'HPCL', quantity: 10000, cost: 950000, type: 'Petrol' }, { id: 2, date: '2025-08-13', supplier: 'IOCL', quantity: 8000, cost: 880000, type: 'Diesel' } ];
+// const initialSales = [ { id: 1, date: '2025-08-14', customerId: 1, fuelType: 'Diesel', quantity: 500, pricePerLiter: 112, total: 56000, paid: 50000, paymentMethod: 'Cash', vehicleNumber: 'AP16TH1234' }, { id: 2, date: '2025-08-14', customerId: 2, fuelType: 'Petrol', quantity: 200, pricePerLiter: 105, total: 21000, paid: 21000, paymentMethod: 'Card', transactionId: 'TXN12345', vehicleNumber: 'TS09AB5678' } ];
+// const initialExpenses = [ { id: 1, date: '2025-08-14', category: 'Salary', amount: 25000, description: 'Staff salaries for July' }, { id: 2, date: '2025-08-14', category: 'Maintenance', amount: 5000, description: 'Pump nozzle replacement' } ];
+// const initialCustomers = [ { id: 1, name: 'ABC Logistics', contact: '9876543210', gstin: '29ABCDE1234F1Z5', address: '123 Main St, Anytown, USA' }, { id: 2, name: 'XYZ Transports', contact: '8765432109', address: '456 Oak Ave, Othertown, USA' } ];
+
+// // --- CONTEXT ---
+// const AppContext = createContext();
+
+// // --- HELPERS ---
+// const formatDate = (dateStr) => new Date(dateStr).toLocaleDateString('en-IN');
+// const formatCurrency = (amount) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
+
+// // --- CUSTOM HOOK for LocalStorage ---
+// function useStickyState(defaultValue, key) {
+//     const [value, setValue] = useState(() => {
+//         const stickyValue = window.localStorage.getItem(key);
+//         return stickyValue !== null
+//             ? JSON.parse(stickyValue)
+//             : defaultValue;
+//     });
+//     useEffect(() => {
+//         window.localStorage.setItem(key, JSON.stringify(value));
+//     }, [key, value]);
+//     return [value, setValue];
+// }
+
+// // --- LOADING SPINNER COMPONENT ---
+// const Spinner = () => (
+//     <div className="flex items-center justify-center min-h-screen bg-gray-900">
+//         <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-blue-400"></div>
+//     </div>
+// );
+
+// // --- MAIN APP WRAPPER ---
+// export default function AppWrapper() {
+//     // This component wraps the main app with the NotificationProvider
+//     // and includes the script for Excel export.
+//     useEffect(() => {
+//         const script = document.createElement('script');
+//         script.src = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";
+//         script.async = true;
+//         document.body.appendChild(script);
+
+//         return () => {
+//             document.body.removeChild(script);
+//         }
+//     }, []);
+
+//     return (
+//         <NotificationProvider>
+//             <App />
+//         </NotificationProvider>
+//     );
+// }
+
+
+// // --- MAIN APP COMPONENT ---
+// function App() {
+//     // --- STATE ---
+//     const [isLoading, setIsLoading] = useState(true);
+//     const [userRole, setUserRole] = useState(null);
+//     const [currentView, setCurrentView] = useState('dashboard');
+//     const [selectedInvoice, setSelectedInvoice] = useState(null);
+//     const [historyModalCustomer, setHistoryModalCustomer] = useState(null);
+//     const [isSaleModalOpen, setIsSaleModalOpen] = useState(false);
+
+//     // --- PERSISTENT STATE using custom hook ---
+//     const [stock, setStock] = useStickyState(initialStock, 'fuelStock');
+//     const [sales, setSales] = useStickyState(initialSales, 'fuelSales');
+//     const [expenses, setExpenses] = useStickyState(initialExpenses, 'fuelExpenses');
+//     const [customers, setCustomers] = useStickyState(initialCustomers, 'fuelCustomers');
+    
+//     const { showNotification } = useNotification();
+
+//     const isModalOpen = !!historyModalCustomer || isSaleModalOpen;
+
+//     // --- EFFECT TO CHECK FOR SAVED STATE ON LOAD ---
+//     useEffect(() => {
+//         const savedRole = localStorage.getItem('fuelStationUserRole');
+//         const savedView = localStorage.getItem('fuelStationCurrentView');
+//         if (savedRole) {
+//             setUserRole(savedRole);
+//         }
+//         if (savedView) {
+//             setCurrentView(savedView);
+//         }
+//         setIsLoading(false); // Finished checking, stop loading
+//     }, []);
+
+//     // --- DERIVED STATE ---
+//     const customerBalances = useMemo(() => {
+//         const balances = {};
+//         customers.forEach(c => balances[c.id] = { due: 0, paid: 0 });
+//         sales.forEach(s => {
+//             if (balances[s.customerId] !== undefined) {
+//                 balances[s.customerId].due += (s.total - s.paid);
+//                 balances[s.customerId].paid += s.paid;
+//             }
+//         });
+//         return balances;
+//     }, [customers, sales]);
+
+//     const fuelStockSummary = useMemo(() => {
+//         const petrolIn = stock.filter(s => s.type === 'Petrol').reduce((acc, s) => acc + s.quantity, 0);
+//         const petrolOut = sales.filter(s => s.fuelType === 'Petrol').reduce((acc, s) => acc + s.quantity, 0);
+//         const dieselIn = stock.filter(s => s.type === 'Diesel').reduce((acc, s) => acc + s.quantity, 0);
+//         const dieselOut = sales.filter(s => s.fuelType === 'Diesel').reduce((acc, s) => acc + s.quantity, 0);
+//         return { petrol: petrolIn - petrolOut, diesel: dieselIn - dieselOut };
+//     }, [stock, sales]);
+//     const dailySummary = useMemo(() => {
+//         const today = new Date().toISOString().split('T')[0];
+//         const todaysSales = sales.filter(s => s.date === today).reduce((acc, s) => acc + s.total, 0);
+//         const todaysExpenses = expenses.filter(e => e.date === today).reduce((acc, e) => acc + e.amount, 0);
+//         return { sales: todaysSales, expenses: todaysExpenses };
+//     }, [sales, expenses]);
+
+//     // --- HANDLERS ---
+//     const handleSetView = (view) => {
+//         localStorage.setItem('fuelStationCurrentView', view);
+//         setCurrentView(view);
+//     };
+
+//     const handleSelectRole = (role) => {
+//         localStorage.setItem('fuelStationUserRole', role);
+//         setUserRole(role);
+//     };
+//     const handleLogout = () => {
+//         localStorage.clear(); // Clear all app data on logout
+//         setUserRole(null);
+//         setCurrentView('dashboard');
+//         // Reset to initial data for next user
+//         setStock(initialStock);
+//         setSales(initialSales);
+//         setExpenses(initialExpenses);
+//         setCustomers(initialCustomers);
+//         showNotification('You have been logged out.');
+//     };
+
+//     const addStock = (newStockEntry) => {
+//         setStock(prev => [...prev, { ...newStockEntry, id: Date.now() }]);
+//         showNotification('Stock added successfully!', 'success');
+//     };
+//     const addSale = (newSale) => {
+//         setSales(prev => [...prev, { ...newSale, id: Date.now() }]);
+//         showNotification('Sale recorded successfully!', 'success');
+//     };
+//     const addExpense = (newExpense) => {
+//         setExpenses(prev => [...prev, { ...newExpense, id: Date.now(), date: new Date().toISOString().split('T')[0] }]);
+//          showNotification('Expense added successfully!', 'success');
+//     };
+//     const deleteExpense = (expenseId) => {
+//         setExpenses(prev => prev.filter(expense => expense.id !== expenseId));
+//         showNotification('Expense deleted.', 'error');
+//     };
+//     const addCustomer = (customerData) => {
+//         const newCustomer = {
+//             id: Date.now(),
+//             name: customerData.name,
+//             contact: customerData.contact,
+//             gstin: customerData.gstin,
+//             address: customerData.address
+//         };
+//         setCustomers(prev => [...prev, newCustomer]);
+//         showNotification('New customer added!', 'success');
+//         return newCustomer; 
+//     };
+    
+//     const exportToExcel = (data, fileName) => {
+//         if (typeof window.XLSX === 'undefined') {
+//             showNotification('Excel export library is loading. Please try again in a moment.', 'error');
+//             return;
+//         }
+//         try {
+//             const ws = window.XLSX.utils.json_to_sheet(data);
+//             const wb = window.XLSX.utils.book_new();
+//             window.XLSX.utils.book_append_sheet(wb, ws, 'Data');
+//             window.XLSX.writeFile(wb, `${fileName}_${new Date().toISOString().split('T')[0]}.xlsx`);
+//             showNotification('Data exported to Excel!', 'success');
+//         } catch (error) {
+//             console.error("Excel export failed:", error);
+//             showNotification('Failed to export data.', 'error');
+//         }
+//     };
+
+
+//     const contextValue = { userRole, stock, addStock, sales, addSale, expenses, addExpense, deleteExpense, customers, addCustomer, setCurrentView: handleSetView, fuelStockSummary, dailySummary, setSelectedInvoice, setHistoryModalCustomer, customerBalances, setIsSaleModalOpen, exportToExcel, showNotification };
+
+//     // --- RENDER ---
+//     if (isLoading) return <Spinner />;
+//     if (selectedInvoice) return <InvoicePage sale={selectedInvoice} customer={customers.find(c => c.id === selectedInvoice.customerId)} onBack={() => setSelectedInvoice(null)} />;
+    
+//     return (
+//         <AppContext.Provider value={contextValue}>
+//             {!userRole && <RoleSelectionScreen onSelectRole={handleSelectRole} />}
+//             {userRole && (
+//                 <div className="flex h-screen bg-gray-100 font-sans">
+//                     {!isModalOpen && <Sidebar onLogout={handleLogout} />}
+//                     <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+//                         <Header />
+//                         <div className="mt-6"><ViewRenderer currentView={currentView} /></div>
+//                     </main>
+//                 </div>
+//             )}
+//             {isSaleModalOpen && <NewSaleModal onClose={() => setIsSaleModalOpen(false)} />}
+//             {historyModalCustomer && <CustomerHistoryModal customer={historyModalCustomer} sales={sales.filter(s => s.customerId === historyModalCustomer.id)} onClose={() => setHistoryModalCustomer(null)} />}
+//         </AppContext.Provider>
+//     );
+// }
+
+// // --- ROLE-BASED ACCESS ---
+// const useAccess = () => {
+//     const { userRole } = useContext(AppContext);
+//     const permissions = { 
+//         Admin: ['dashboard', 'stock', 'sales', 'ledger', 'expenses', 'reports', 'settings', 'addSale', 'addCustomer'], 
+//         Manager: ['dashboard', 'stock', 'sales', 'ledger', 'reports', 'addSale', 'addCustomer'], 
+//         Cashier: ['dashboard', 'sales', 'ledger', 'invoice', 'addSale', 'addCustomer'], 
+//     };
+//     return (feature) => permissions[userRole]?.includes(feature) || false;
+// };
+
+// // --- LAYOUT COMPONENTS ---
+// const RoleSelectionScreen = ({ onSelectRole }) => (
+//     <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+//         <div className="text-center p-10 bg-gray-800 rounded-2xl shadow-2xl">
+//             <Droplets className="mx-auto h-16 w-16 text-blue-400 mb-4" />
+//             <h1 className="text-4xl font-bold mb-2">Fuel Station OS</h1>
+//             <p className="text-gray-400 mb-8">Select your role to continue</p>
+//             <div className="flex flex-col sm:flex-row gap-4">
+//                 {['Admin', 'Manager', 'Cashier'].map(role => (
+//                     <button key={role} onClick={() => onSelectRole(role)} className="w-full sm:w-40 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-lg font-semibold transition-transform transform hover:scale-105">{role}</button>
+//                 ))}
+//             </div>
+//         </div>
+//     </div>
+// );
+
+// const Sidebar = ({ onLogout }) => {
+//     const { userRole, setCurrentView } = useContext(AppContext);
+//     const { currentView: activeView } = useContext(AppContext);
+//     const canAccess = useAccess();
+//     const navItems = [
+//         { view: 'dashboard', label: 'Dashboard', icon: BarChart2 },
+//         { view: 'stock', label: 'Fuel Stock', icon: Droplets },
+//         { view: 'sales', label: 'Record Sales', icon: DollarSign },
+//         { view: 'ledger', label: 'Customer Ledger', icon: BookOpen },
+//         { view: 'expenses', label: 'Expenses', icon: Briefcase },
+//         { view: 'reports', label: 'Reports', icon: FileText },
+//         { view: 'settings', label: 'Settings', icon: Settings },
+//     ];
+//     return (
+//         <aside className="w-64 bg-gray-800 text-white flex flex-col">
+//             <div className="p-6 text-2xl font-bold border-b border-gray-700 flex items-center gap-2"><Droplets className="text-blue-400" /><span>FuelOS</span></div>
+//             <nav className="flex-1 p-4">
+//                 <ul>
+//                     {navItems.map(item => canAccess(item.view) && (
+//                         <li key={item.view} className="mb-2">
+//                             <button onClick={() => setCurrentView(item.view)} className={`w-full flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${activeView === item.view ? 'bg-blue-600' : 'hover:bg-gray-700'}`}><item.icon size={20} />{item.label}</button>
+//                         </li>
+//                     ))}
+//                 </ul>
+//             </nav>
+//             <div className="p-4 border-t border-gray-700">
+//                 <div className="mb-4"><p className="text-sm text-gray-400">Logged in as:</p><p className="font-semibold text-lg">{userRole}</p></div>
+//                 <button onClick={onLogout} className="w-full flex items-center justify-center gap-3 px-4 py-2 rounded-md bg-red-600 hover:bg-red-700 transition-colors"><LogOut size={20} />Logout</button>
+//             </div>
+//         </aside>
+//     );
+// };
+
+// const Header = () => { const { userRole } = useContext(AppContext); return (<header className="flex justify-between items-center"><h1 className="text-3xl font-bold text-gray-800">Welcome, {userRole}!</h1><p className="text-gray-500">{new Date().toDateString()}</p></header>); };
+// const ViewRenderer = ({ currentView }) => {
+//     switch (currentView) {
+//         case 'dashboard': return <Dashboard />;
+//         case 'stock': return <StockManagement />;
+//         case 'sales': return <SalesManagement />;
+//         case 'ledger': return <CustomerLedger />;
+//         case 'expenses': return <ExpenseManagement />;
+//         case 'reports': return <Reports />;
+//         case 'settings': return <SettingsPage />;
+//         default: return <Dashboard />;
+//     }
+// };
+
+// // --- FEATURE COMPONENTS ---
+// const Dashboard = () => {
+//     const { fuelStockSummary, dailySummary } = useContext(AppContext);
+//     return (
+//         <div>
+//             <h2 className="text-2xl font-semibold mb-4 text-gray-700">Dashboard Overview</h2>
+//             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+//                 <StatCard title="Petrol Stock" value={`${fuelStockSummary.petrol.toLocaleString()} L`} icon={Droplets} color="blue" />
+//                 <StatCard title="Diesel Stock" value={`${fuelStockSummary.diesel.toLocaleString()} L`} icon={Droplets} color="orange" />
+//                 <StatCard title="Today's Sales" value={formatCurrency(dailySummary.sales)} icon={DollarSign} color="green" />
+//                 <StatCard title="Today's Expenses" value={formatCurrency(dailySummary.expenses)} icon={Briefcase} color="red" />
+//             </div>
+//             <div className="mt-8"><DailyClosing /></div>
+//         </div>
+//     );
+// };
+
+// const StatCard = ({ title, value, icon: Icon, color }) => {
+//     const colors = { blue: 'from-blue-500 to-blue-600', orange: 'from-orange-500 to-orange-600', green: 'from-green-500 to-green-600', red: 'from-red-500 to-red-600' };
+//     return (
+//         <div className={`bg-gradient-to-br ${colors[color]} text-white p-6 rounded-xl shadow-lg flex items-center justify-between`}>
+//             <div><p className="text-lg font-medium">{title}</p><p className="text-3xl font-bold">{value}</p></div>
+//             <Icon size={48} className="opacity-50" />
+//         </div>
+//     );
+// };
+
+// const StockManagement = () => {
+//     const { stock, addStock, exportToExcel } = useContext(AppContext);
+//     const canAccess = useAccess();
+//     return (
+//         <Card title="Fuel Stock Management" actionButton={canAccess('Admin') && <button onClick={() => exportToExcel(stock, 'stock_records')} className="btn-secondary"><FileDown size={16} /> Export</button>}>
+//             {canAccess('Admin') && <StockForm onSubmit={addStock} />}
+//             <div className="mt-6"><h3 className="text-lg font-semibold mb-2">Current Stock Records</h3><DataTable headers={['Date', 'Supplier', 'Fuel Type', 'Quantity (L)', 'Cost']} rows={stock.map(s => [formatDate(s.date), s.supplier, s.type, s.quantity.toLocaleString(), formatCurrency(s.cost)])} /></div>
+//         </Card>
+//     );
+// };
+
+// const StockForm = ({ onSubmit }) => {
+//     const [formData, setFormData] = useState({ date: '', supplier: '', quantity: '', cost: '', type: 'Petrol' });
+//     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+//     const handleSubmit = (e) => { e.preventDefault(); onSubmit({ ...formData, quantity: parseFloat(formData.quantity), cost: parseFloat(formData.cost) }); setFormData({ date: '', supplier: '', quantity: '', cost: '', type: 'Petrol' }); };
+//     return (
+//         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-5 gap-4 p-4 border rounded-lg bg-gray-50">
+//             <input type="date" name="date" value={formData.date} onChange={handleChange} className="input-field" required />
+//             <input type="text" name="supplier" value={formData.supplier} onChange={handleChange} placeholder="Supplier" className="input-field" required />
+//             <select name="type" value={formData.type} onChange={handleChange} className="input-field"><option>Petrol</option><option>Diesel</option></select>
+//             <input type="number" name="quantity" value={formData.quantity} onWheel={e => e.target.blur()} onChange={handleChange} placeholder="Quantity (L)" className="input-field" required />
+//             <input type="number" name="cost" value={formData.cost} onChange={handleChange} onWheel={e => e.target.blur()} placeholder="Total Cost" className="input-field" required />
+//             <button type="submit" className="btn-primary col-span-1 md:col-span-5"><PlusCircle size={16} /> Add Stock</button>
+//         </form>
+//     );
+// };
+
+// const SalesManagement = () => {
+//     const { sales, customers, setSelectedInvoice, setIsSaleModalOpen } = useContext(AppContext);
+//     const [startDate, setStartDate] = useState('');
+//     const [endDate, setEndDate] = useState('');
+//     const canAccess = useAccess();
+
+//     const filteredSales = useMemo(() => {
+//         if (!startDate && !endDate) return sales;
+//         return sales.filter(s => {
+//             const saleDate = new Date(s.date);
+//             const start = startDate ? new Date(startDate) : null;
+//             const end = endDate ? new Date(endDate) : null;
+//             if(start) start.setHours(0,0,0,0);
+//             if(end) end.setHours(23,59,59,999);
+//             if (start && end) return saleDate >= start && saleDate <= end;
+//             if (start) return saleDate >= start;
+//             if (end) return saleDate <= end;
+//             return true;
+//         });
+//     }, [sales, startDate, endDate]);
+
+//     const clearFilter = () => {
+//         setStartDate('');
+//         setEndDate('');
+//     };
+
+//     const getTitle = () => {
+//         if (startDate && endDate) return `Sales from ${formatDate(startDate)} to ${formatDate(endDate)}`;
+//         if (startDate) return `Sales from ${formatDate(startDate)}`;
+//         if (endDate) return `Sales until ${formatDate(endDate)}`;
+//         return 'All Recent Sales';
+//     };
+
+//     return (
+//         <Card title="Sales Management" actionButton={canAccess('addSale') && <button onClick={() => setIsSaleModalOpen(true)} className="btn-primary"><PlusCircle size={16}/> New Sale</button>}>
+//             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 border rounded-lg bg-gray-50 mb-4">
+//                 <div>
+//                     <label className="block text-sm font-medium text-gray-700">Start Date</label>
+//                     <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="input-field mt-1" />
+//                 </div>
+//                 <div>
+//                     <label className="block text-sm font-medium text-gray-700">End Date</label>
+//                     <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="input-field mt-1" />
+//                 </div>
+//                 <div className="flex items-end">
+//                     <button onClick={clearFilter} className="btn-secondary w-full">Clear Filter</button>
+//                 </div>
+//             </div>
+//             <div className="mt-6"><h3 className="text-lg font-semibold mb-2">{getTitle()}</h3><DataTable headers={['Date', 'Customer', 'Fuel Type', 'Qty (L)', 'Total', 'Paid', 'Actions']} rows={filteredSales.map(s => [formatDate(s.date), customers.find(c => c.id === s.customerId)?.name || 'N/A', s.fuelType, s.quantity.toLocaleString(), formatCurrency(s.total), formatCurrency(s.paid), <button onClick={() => setSelectedInvoice(s)} className="btn-icon text-blue-600"><Printer size={18} /></button>])} /></div>
+//         </Card>
+//     );
+// };
+
+// const CustomerLedger = () => {
+//     const { customers, sales, setHistoryModalCustomer, customerBalances, exportToExcel } = useContext(AppContext);
+//     const [searchTerm, setSearchTerm] = useState('');
+
+//     const filteredCustomers = useMemo(() => {
+//         if (!searchTerm) return customers;
+//         return customers.filter(c => 
+//             c.name.toLowerCase().includes(searchTerm.toLowerCase())
+//         );
+//     }, [customers, searchTerm]);
+
+//     const handleExport = () => {
+//         const dataToExport = sales.map(s => {
+//             const customer = customers.find(c => c.id === s.customerId);
+//             return {
+//                 'Date': formatDate(s.date),
+//                 'Customer Name': customer?.name || 'N/A',
+//                 'Contact': customer?.contact || 'N/A',
+//                 'Address': customer?.address || 'N/A',
+//                 'Fuel Type': s.fuelType,
+//                 'Quantity (L)': s.quantity,
+//                 'Paid': s.paid,
+//                 'Due': s.total - s.paid,
+//                 'Payment Method': s.paymentMethod,
+//                 'Reference': s.transactionId || s.chequeNumber || 'N/A'
+//             };
+//         });
+//         exportToExcel(dataToExport, 'customer_ledger_all_transactions');
+//     };
+
+//     return (
+//         <Card title="Bulk Customer Ledger" actionButton={<button onClick={handleExport} className="btn-secondary"><FileDown size={16}/> Export All Transactions</button>}>
+//             <div className="flex items-center gap-2 mb-4">
+//                 <input 
+//                     type="text"
+//                     placeholder="Search by customer name..."
+//                     value={searchTerm}
+//                     onChange={e => setSearchTerm(e.target.value)}
+//                     className="input-field w-full max-w-xs"
+//                 />
+//                 <button onClick={() => setSearchTerm('')} className="btn-secondary">Clear</button>
+//             </div>
+//             <div className="mt-6">
+//                 <div className="overflow-x-auto">
+//                     <table className="w-full text-sm text-left text-gray-500">
+//                         <thead className="text-xs text-gray-700 uppercase bg-gray-50"><tr><th className="px-6 py-3">Name</th><th className="px-6 py-3">Contact</th><th className="px-6 py-3">Total Paid</th><th className="px-6 py-3">Total Due</th><th className="px-6 py-3 text-center">Actions</th></tr></thead>
+//                         <tbody>
+//                             {filteredCustomers.map(c => (
+//                                 <tr key={c.id} className="bg-white border-b hover:bg-gray-50">
+//                                     <td className="px-6 py-4 font-medium text-gray-900">{c.name}</td>
+//                                     <td className="px-6 py-4">{c.contact}</td>
+//                                     <td className="px-6 py-4 font-semibold text-green-600">{formatCurrency(customerBalances[c.id]?.paid || 0)}</td>
+//                                     <td className="px-6 py-4 font-semibold text-red-600">{formatCurrency(customerBalances[c.id]?.due || 0)}</td>
+//                                     <td className="px-6 py-4 flex justify-center items-center gap-2">
+//                                         <button onClick={() => setHistoryModalCustomer(c)} className="btn-primary py-1 px-3 text-xs">View Details</button>
+//                                     </td>
+//                                 </tr>
+//                             ))}
+//                         </tbody>
+//                     </table>
+//                 </div>
+//             </div>
+//         </Card>
+//     );
+// };
+// const ExpenseManagement = () => {
+//     const { expenses, addExpense, deleteExpense, exportToExcel } = useContext(AppContext);
+//     return (
+//         <Card title="Expense Management" actionButton={<button onClick={() => exportToExcel(expenses, 'expense_records')} className="btn-secondary"><FileDown size={16} /> Export</button>}>
+//             <ExpenseForm onSubmit={addExpense} />
+//             <div className="mt-6">
+//                 <h3 className="text-lg font-semibold mb-2">Recent Expenses</h3>
+//                 <DataTable
+//                     headers={['Date', 'Category', 'Description', 'Amount', 'Actions']}
+//                     rows={expenses.map(e => [
+//                         formatDate(e.date),
+//                         e.category,
+//                         e.description,
+//                         formatCurrency(e.amount),
+//                         <button onClick={() => deleteExpense(e.id)} className="btn-icon text-red-600"><Trash2 size={18} /></button>
+//                     ])}
+//                 />
+//             </div>
+//         </Card>
+//     );
+// };
+
+// const ExpenseForm = ({ onSubmit }) => {
+//     const [formData, setFormData] = useState({ category: '', amount: '', description: '' });
+//     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+//     const handleSubmit = (e) => { e.preventDefault(); onSubmit({ ...formData, amount: parseFloat(formData.amount) }); setFormData({ category: '', amount: '', description: '' }); };
+//     return (
+//         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 border rounded-lg bg-gray-50">
+//             <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder="Category (e.g., Salary)" className="input-field" required />
+//             <input type="number" name="amount" value={formData.amount} onWheel={e => e.target.blur()} onChange={handleChange} placeholder="Amount" className="input-field" required />
+//             <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" className="input-field md:col-span-2" required />
+//             <button type="submit" className="btn-primary md:col-span-4"><PlusCircle size={16} /> Add Expense</button>
+//         </form>
+//     );
+// };
+
+// const InvoicePage = ({ sale, customer, onBack }) => {
+//     const handlePrint = () => window.print();
+//     return (
+//         <div className="bg-gray-100 p-8 min-h-screen">
+//             <div className="max-w-4xl mx-auto bg-white p-10 rounded-lg shadow-xl">
+//                 <div className="flex justify-between items-start mb-8"><div><h1 className="text-3xl font-bold text-gray-800">INVOICE</h1><p className="text-gray-500">Invoice #: {sale.id}</p><p className="text-gray-500">Date: {formatDate(sale.date)}</p></div><div className="text-right"><h2 className="text-2xl font-semibold text-gray-700">Fuel Station</h2><p className="text-gray-500">123 Highway Rd, Vijayawada, AP</p><p className="text-gray-500">GSTIN: YOURGSTINHERE</p></div></div>
+//                 <div className="mb-8 border-t pt-4"><h3 className="font-semibold text-gray-600">Bill To:</h3><p className="text-lg font-bold text-gray-800">{customer?.name || "N/A"}</p><p className="text-gray-500">{customer?.contact}</p><p className="text-gray-500">{customer?.address}</p>{customer?.gstin && <p className="text-gray-500">GSTIN: {customer.gstin}</p>}</div>
+//                 <table className="w-full mb-8"><thead><tr className="bg-gray-200 text-left text-gray-600 uppercase text-sm"><th className="py-3 px-4">Description</th><th className="py-3 px-4">Vehicle No.</th><th className="py-3 px-4 text-right">Quantity (L)</th><th className="py-3 px-4 text-right">Rate</th><th className="py-3 px-4 text-right">Amount</th></tr></thead><tbody><tr className="border-b"><td className="py-4 px-4 font-medium">{sale.fuelType}</td><td className="py-4 px-4">{sale.vehicleNumber || 'N/A'}</td><td className="py-4 px-4 text-right">{sale.quantity.toLocaleString()}</td><td className="py-4 px-4 text-right">{formatCurrency(sale.pricePerLiter)}</td><td className="py-4 px-4 text-right">{formatCurrency(sale.total)}</td></tr></tbody></table>
+//                 <div className="flex justify-between items-start">
+//                     <div>
+//                         <h4 className="font-semibold text-gray-600">Payment Details:</h4>
+//                         <p className="text-gray-700">Method: {sale.paymentMethod}</p>
+//                         {sale.transactionId && <p className="text-gray-700">Reference: {sale.transactionId}</p>}
+//                         {sale.chequeNumber && <p className="text-gray-700">Cheque No: {sale.chequeNumber}</p>}
+//                     </div>
+//                     <div className="w-full md:w-1/3 text-right">
+//                         <div className="flex justify-between text-gray-700"><span className="font-semibold">Subtotal:</span><span>{formatCurrency(sale.total)}</span></div>
+//                         <div className="flex justify-between text-gray-700 mt-2"><span className="font-semibold">Paid:</span><span>{formatCurrency(sale.paid)}</span></div>
+//                         <div className="flex justify-between text-xl font-bold text-gray-800 mt-4 border-t-2 pt-2"><span>DUE:</span><span>{formatCurrency(sale.total - sale.paid)}</span></div>
+//                     </div>
+//                 </div>
+//                 <div className="mt-12 text-center text-gray-500 text-sm"><p>Thank you for your business!</p></div>
+//                 <div className="mt-8 flex gap-4 justify-center print:hidden"><button onClick={onBack} className="btn-secondary">Back to Sales</button><button onClick={handlePrint} className="btn-primary"><Printer size={16} /> Print / Save PDF</button></div>
+//             </div>
+//             <style>{`@media print { .print\\:hidden { display: none; } }`}</style>
+//         </div>
+//     );
+// };
+
+// const Reports = () => {
+//     const { sales, expenses, customers, exportToExcel } = useContext(AppContext);
+//     const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
+//     const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
+
+//     const handleExport = (dataType) => {
+//         const start = new Date(startDate);
+//         const end = new Date(endDate);
+//         end.setHours(23, 59, 59, 999); 
+
+//         let dataToExport;
+//         let fileName;
+
+//         if (dataType === 'sales') {
+//             dataToExport = sales
+//                 .filter(s => new Date(s.date) >= start && new Date(s.date) <= end)
+//                 .map(s => {
+//                     const customer = customers.find(c => c.id === s.customerId);
+//                     return {
+//                         Date: formatDate(s.date),
+//                         Customer: customer ? customer.name : 'N/A',
+//                         'Vehicle Number': s.vehicleNumber || 'N/A',
+//                         Address: customer ? customer.address : 'N/A',
+//                         'Fuel Type': s.fuelType,
+//                         'Quantity (L)': s.quantity,
+//                         'Total Bill': s.total,
+//                         Paid: s.paid,
+//                         Due: s.total - s.paid,
+//                         'Payment Method': s.paymentMethod,
+//                         Reference: s.transactionId || s.chequeNumber || 'N/A'
+//                     };
+//                 });
+//             fileName = 'sales_report';
+//         } else {
+//             dataToExport = expenses
+//                 .filter(e => new Date(e.date) >= start && new Date(e.date) <= end)
+//                 .map(e => ({
+//                     Date: formatDate(e.date),
+//                     Category: e.category,
+//                     Description: e.description,
+//                     Amount: e.amount
+//                 }));
+//             fileName = 'expenses_report';
+//         }
+//         exportToExcel(dataToExport, `${fileName}_${startDate}_to_${endDate}`);
+//     };
+
+//     return (
+//         <Card title="Reports Center">
+//             <h3 className="text-lg font-semibold mb-2 text-gray-700">Day Wise Reports</h3>
+//             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 border rounded-lg bg-gray-50">
+//                 <div>
+//                     <label className="block text-sm font-medium text-gray-700">Start Date</label>
+//                     <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="input-field mt-1" />
+//                 </div>
+//                 <div>
+//                     <label className="block text-sm font-medium text-gray-700">End Date</label>
+//                     <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="input-field mt-1" />
+//                 </div>
+//                 <div className="flex items-end">
+//                     <button onClick={() => handleExport('sales')} className="btn-primary w-full"><FileDown size={16}/> Export Sales</button>
+//                 </div>
+//                 <div className="flex items-end">
+//                     <button onClick={() => handleExport('expenses')} className="btn-primary w-full"><FileDown size={16}/> Export Expenses</button>
+//                 </div>
+//             </div>
+//         </Card>
+//     );
+// };
+
+// const DailyClosing = () => {
+//     const { dailySummary, fuelStockSummary } = useContext(AppContext);
+//     const handleSendReport = () => {
+//         const summaryText = `\n*Daily Closing Report - ${new Date().toLocaleDateString('en-IN')}*\n\n*Sales Summary:*\n- Total Sales: ${formatCurrency(dailySummary.sales)}\n\n*Expense Summary:*\n- Total Expenses: ${formatCurrency(dailySummary.expenses)}\n\n*Closing Stock:*\n- Petrol: ${fuelStockSummary.petrol.toLocaleString()} L\n- Diesel: ${fuelStockSummary.diesel.toLocaleString()} L\n\nThis is an automated report.`;
+//         window.open(`https://wa.me/?text=${encodeURIComponent(summaryText)}`, '_blank');
+//     };
+//     return (
+//         <Card title="Daily Closing">
+//             <div className="p-4 bg-gray-50 rounded-lg">
+//                 <h3 className="font-semibold text-lg mb-4">Today's Summary</h3>
+//                 <div className="space-y-2"><div className="flex justify-between"><span>Total Sales:</span> <span className="font-bold text-green-600">{formatCurrency(dailySummary.sales)}</span></div><div className="flex justify-between"><span>Total Expenses:</span> <span className="font-bold text-red-600">{formatCurrency(dailySummary.expenses)}</span></div><div className="flex justify-between pt-2 border-t mt-2"><span>Net:</span> <span className="font-bold">{formatCurrency(dailySummary.sales - dailySummary.expenses)}</span></div></div>
+//                 <button onClick={handleSendReport} className="btn-primary w-full mt-6">Send Closing Report (via WhatsApp)</button>
+//             </div>
+//         </Card>
+//     );
+// };
+
+// const SettingsPage = () => (<Card title="Settings"><p className="text-gray-600">This page is a placeholder for future application settings.</p></Card>);
+
+// // --- MODAL COMPONENTS ---
+// const Modal = ({ children, title, onClose, size = 'max-w-md' }) => (
+//     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+//         <div className={`bg-white rounded-lg shadow-xl w-full m-4 ${size}`}>
+//             <div className="flex justify-between items-center p-4 border-b">
+//                 <h3 className="text-lg font-semibold">{title}</h3>
+//                 <button onClick={onClose} className="btn-icon"><X size={20} /></button>
+//             </div>
+//             <div className="p-4 max-h-[80vh] overflow-y-auto">
+//                 {children}
+//             </div>
+//         </div>
+//     </div>
+// );
+
+// const NewSaleModal = ({ onClose }) => {
+//     const { customers, addCustomer, addSale } = useContext(AppContext);
+//     const [formData, setFormData] = useState({ customerId: '', date: new Date().toISOString().split('T')[0], fuelType: 'Petrol', quantity: 0, pricePerLiter: 0, paid: 0, paymentMethod: 'Cash', transactionId: '', chequeNumber: '', vehicleNumber: '' });
+//     const [isAddCustomerModalOpen, setIsAddCustomerModalOpen] = useState(false);
+
+//     const total = formData.quantity * formData.pricePerLiter;
+//     const due = total - formData.paid;
+
+//     const handleChange = (e) => {
+//         setFormData({ ...formData, [e.target.name]: e.target.value });
+//     };
+    
+//     const handleNewCustomerSave = (customerData) => {
+//         const newCustomer = addCustomer(customerData);
+//         setIsAddCustomerModalOpen(false);
+//         setFormData({...formData, customerId: newCustomer.id });
+//     };
+
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//         const saleData = {
+//             ...formData,
+//             quantity: parseFloat(formData.quantity) || 0,
+//             pricePerLiter: parseFloat(formData.pricePerLiter) || 0,
+//             total: total,
+//             paid: parseFloat(formData.paid) || 0,
+//             customerId: parseInt(formData.customerId),
+//         };
+//         addSale(saleData);
+//         onClose();
+//     };
+
+//     return (
+//         <>
+//             <Modal title="Record New Sale" onClose={onClose} size="max-w-2xl">
+//                 <form onSubmit={handleSubmit} className="space-y-4">
+//                     <div>
+//                         <label className="block text-sm font-medium text-gray-700">Customer</label>
+//                         <div className="flex items-center gap-2 mt-1">
+//                             <select name="customerId" value={formData.customerId} onChange={handleChange} className="input-field" required>
+//                                 <option value="">Select Bulk Customer</option>
+//                                 {customers.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+//                             </select>
+//                             <button type="button" onClick={() => setIsAddCustomerModalOpen(true)} className="btn-secondary flex-shrink-0">
+//                                 <UserPlus size={16} />
+//                                 <span>New</span>
+//                             </button>
+//                         </div>
+//                     </div>
+//                      <div><label className="block text-sm font-medium text-gray-700">Vehicle Number (Optional)</label><input type="text" name="vehicleNumber" value={formData.vehicleNumber} onChange={handleChange} className="input-field mt-1" /></div>
+//                     <div className="grid grid-cols-2 gap-4">
+//                         <div><label className="block text-sm font-medium text-gray-700">Date</label><input type="date" name="date" value={formData.date} onChange={handleChange} className="input-field mt-1" required /></div>
+//                         <div><label className="block text-sm font-medium text-gray-700">Fuel Type</label><select name="fuelType" value={formData.fuelType} onChange={handleChange} className="input-field mt-1"><option>Petrol</option><option>Diesel</option></select></div>
+//                     </div>
+//                     <div className="grid grid-cols-2 gap-4">
+//                         <div><label className="block text-sm font-medium text-gray-700">Quantity (L)</label><input type="number" name="quantity" value={formData.quantity} onWheel={e => e.target.blur()} onChange={handleChange} className="input-field mt-1" required /></div>
+//                         <div><label className="block text-sm font-medium text-gray-700">Price / Liter</label><input type="number" name="pricePerLiter" value={formData.pricePerLiter} onWheel={e => e.target.blur()} onChange={handleChange} className="input-field mt-1" required /></div>
+//                     </div>
+//                     <div className="p-2 bg-gray-100 rounded-md text-right font-bold">Total Bill: {formatCurrency(total)}</div>
+//                     <div><label className="block text-sm font-medium text-gray-700">Amount Paid Now</label><input type="number" name="paid" value={formData.paid} onWheel={e => e.target.blur()} onChange={handleChange} className="input-field mt-1" required /></div>
+//                     <div><label className="block text-sm font-medium text-gray-700">Payment Method</label><select name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} className="input-field mt-1"><option>Cash</option><option>Card</option><option>Cheque</option><option>UPI</option><option>Internet Banking</option></select></div>
+                    
+//                     {(formData.paymentMethod === 'Card' || formData.paymentMethod === 'Internet Banking' || formData.paymentMethod === 'UPI') && <div><label className="block text-sm font-medium text-gray-700">Transaction ID / Reference</label><input type="text" name="transactionId" value={formData.transactionId} onChange={handleChange} className="input-field mt-1" /></div>}
+//                     {formData.paymentMethod === 'Cheque' && <div><label className="block text-sm font-medium text-gray-700">Cheque Number</label><input type="text" name="chequeNumber" value={formData.chequeNumber} onChange={handleChange} className="input-field mt-1" /></div>}
+
+//                     <div className="p-2 bg-red-100 text-red-700 rounded-md text-right font-bold">Amount Due: {formatCurrency(due)}</div>
+//                     <div className="flex justify-end pt-4"><button type="submit" className="btn-primary">Save Sale & Generate Invoice</button></div>
+//                 </form>
+//             </Modal>
+//             {isAddCustomerModalOpen && <AddCustomerFromSaleModal onSave={handleNewCustomerSave} onClose={() => setIsAddCustomerModalOpen(false)} />}
+//         </>
+//     );
+// };
+
+// const AddCustomerFromSaleModal = ({ onSave, onClose }) => {
+//     const [formData, setFormData] = useState({ name: '', contact: '', gstin: '', address: '' });
+//     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//         onSave(formData);
+//     };
+
+//     return (
+//         <Modal title="Add New Customer" onClose={onClose}>
+//             <form onSubmit={handleSubmit} className="space-y-4">
+//                 <div><label className="block text-sm font-medium text-gray-700">Name</label><input type="text" name="name" value={formData.name} onChange={handleChange} className="input-field mt-1" required autoFocus /></div>
+//                 <div><label className="block text-sm font-medium text-gray-700">Contact</label><input type="text" name="contact" value={formData.contact} onChange={handleChange} className="input-field mt-1" /></div>
+//                 <div><label className="block text-sm font-medium text-gray-700">Address</label><textarea name="address" value={formData.address} onChange={handleChange} className="input-field mt-1" /></div>
+//                 <div><label className="block text-sm font-medium text-gray-700">GSTIN (Optional)</label><input type="text" name="gstin" value={formData.gstin} onChange={handleChange} className="input-field mt-1" /></div>
+//                 <div className="flex justify-end pt-4"><button type="submit" className="btn-primary">Save Customer</button></div>
+//             </form>
+//         </Modal>
+//     );
+// };
+
+// const CustomerHistoryModal = ({ customer, sales, onClose }) => {
+//     const { exportToExcel } = useContext(AppContext);
+//     const [vehicleSearchTerm, setVehicleSearchTerm] = useState('');
+
+//     const filteredSales = useMemo(() => {
+//         if (!vehicleSearchTerm) return sales;
+//         return sales.filter(s => 
+//             s.vehicleNumber && s.vehicleNumber.toLowerCase().includes(vehicleSearchTerm.toLowerCase())
+//         );
+//     }, [sales, vehicleSearchTerm]);
+
+//     const handleExport = (data, type) => {
+//         const dataToExport = data.map(s => ({
+//             'Customer Name': customer.name,
+//             'Address': customer.address,
+//             'Vehicle Number': s.vehicleNumber || 'N/A',
+//             Date: formatDate(s.date),
+//             'Fuel Type': s.fuelType,
+//             'Quantity (L)': s.quantity,
+//             'Total Bill': s.total,
+//             'Paid': s.paid,
+//             'Due': s.total - s.paid,
+//             'Payment Method': s.paymentMethod,
+//             'Reference': s.transactionId || s.chequeNumber || 'N/A'
+//         }));
+//         const fileName = type === 'filtered' 
+//             ? `transaction_history_${customer.name}_${vehicleSearchTerm}`
+//             : `transaction_history_${customer.name}_all`;
+//         exportToExcel(dataToExport, fileName);
+//     };
+
+//     return (
+//         <Modal title={`Transaction History for ${customer.name}`} onClose={onClose} size="max-w-5xl">
+//             <div className="flex justify-between items-center mb-4">
+//                  <div className="flex items-center gap-2">
+//                     <input 
+//                         type="text"
+//                         placeholder="Search by vehicle number..."
+//                         value={vehicleSearchTerm}
+//                         onChange={e => setVehicleSearchTerm(e.target.value)}
+//                         className="input-field w-full max-w-xs"
+//                     />
+//                     <button onClick={() => setVehicleSearchTerm('')} className="btn-secondary">Clear</button>
+//                 </div>
+//                 <div className="flex items-center gap-2">
+//                     {vehicleSearchTerm ? (
+//                         <button onClick={() => handleExport(filteredSales, 'filtered')} className="btn-secondary" disabled={filteredSales.length === 0}>
+//                             <FileDown size={16}/> Export Filtered
+//                         </button>
+//                     ) : (
+//                         <button onClick={() => handleExport(sales, 'all')} className="btn-secondary">
+//                             <FileDown size={16}/> Export All History
+//                         </button>
+//                     )}
+//                 </div>
+//             </div>
+//             <div className="max-h-[60vh] overflow-y-auto">
+//                 {filteredSales.length === 0 ? (
+//                     <p className="text-gray-500 text-center py-4">No matching sales history found.</p>
+//                 ) : (
+//                     <DataTable 
+//                         headers={['Date', 'Vehicle No.', 'Fuel Type', 'Quantity (L)', 'Total Bill', 'Paid', 'Due']}
+//                         rows={filteredSales.map(s => [
+//                             formatDate(s.date),
+//                             s.vehicleNumber || 'N/A',
+//                             s.fuelType,
+//                             `${s.quantity} L`,
+//                             formatCurrency(s.total),
+//                             formatCurrency(s.paid),
+//                             <span className="font-bold text-red-600">{formatCurrency(s.total - s.paid)}</span>
+//                         ])}
+//                     />
+//                 )}
+//             </div>
+//         </Modal>
+//     );
+// };
+
+
+// // --- REUSABLE UI COMPONENTS ---
+// const Card = ({ title, children, actionButton }) => (<div className="bg-white p-6 rounded-xl shadow-md"><div className="flex justify-between items-center mb-4 border-b pb-4"><h2 className="text-xl font-bold text-gray-800">{title}</h2>{actionButton}</div>{children}</div>);
+// const DataTable = ({ headers, rows }) => (<div className="overflow-x-auto"><table className="w-full text-sm text-left text-gray-500"><thead className="text-xs text-gray-700 uppercase bg-gray-50"><tr>{headers.map((h, i) => <th key={i} className="px-6 py-3">{h}</th>)}</tr></thead><tbody>{rows.map((row, i) => (<tr key={i} className="bg-white border-b hover:bg-gray-50">{row.map((cell, j) => <td key={j} className="px-6 py-4">{cell}</td>)}</tr>))}</tbody></table></div>);
+
+// // --- GLOBAL STYLES FALLBACK ---
+// const style = document.createElement('style');
+// style.textContent = `
+//     .input-field { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 0.375rem; transition: box-shadow 0.2s; }
+//     .input-field:focus { outline: none; box-shadow: 0 0 0 2px #3b82f6; }
+//     .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: #2563eb; color: white; font-weight: 600; border-radius: 0.375rem; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); transition: background-color 0.2s; }
+//     .btn-primary:hover { background-color: #1d4ed8; }
+//     .btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: #e5e7eb; color: #374151; font-weight: 600; border-radius: 0.375rem; transition: background-color 0.2s; }
+//     .btn-secondary:hover { background-color: #d1d5db; }
+//     .btn-icon { padding: 0.5rem; border-radius: 9999px; transition: background-color 0.2s; }
+//     .btn-icon:hover { background-color: #f3f4f6; }
+//     /* Hide arrows from number inputs */
+//     input[type=number]::-webkit-inner-spin-button,
+//     input[type=number]::-webkit-outer-spin-button {
+//       -webkit-appearance: none;
+//       margin: 0;
+//     }
+//     input[type=number] {
+//       -moz-appearance: textfield;
+//     }
+// `;
+// document.head.append(style);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useState, createContext, useContext, useMemo, useEffect } from 'react';
+
+// // --- NOTIFICATION SYSTEM ---
+// const NotificationContext = createContext();
+
+// const NotificationProvider = ({ children }) => {
+//     const [notification, setNotification] = useState(null);
+
+//     const showNotification = (message, type = 'info') => {
+//         setNotification({ message, type });
+//         setTimeout(() => {
+//             setNotification(null);
+//         }, 3000);
+//     };
+
+//     return (
+//         <NotificationContext.Provider value={{ showNotification }}>
+//             {children}
+//             {notification && (
+//                 <div className={`fixed bottom-5 right-5 p-4 rounded-lg shadow-lg text-white ${notification.type === 'error' ? 'bg-red-500' : notification.type === 'success' ? 'bg-green-500' : 'bg-blue-500'}`}>
+//                     {notification.message}
+//                 </div>
+//             )}
+//         </NotificationContext.Provider>
+//     );
+// };
+
+// const useNotification = () => useContext(NotificationContext);
+
+
+// // --- SVG ICONS ---
+// const Icon = ({ children, size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{children}</svg>;
+// const PlusCircle = ({ size, className }) => <Icon size={size} className={className}><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></Icon>;
+// const FileDown = ({ size, className }) => <Icon size={size} className={className}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></Icon>;
+// const UserPlus = ({ size, className }) => <Icon size={size} className={className}><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="17" y1="11" x2="23" y2="11"></line></Icon>;
+// const Droplets = ({ size, className }) => <Icon size={size} className={className}><path d="M7 16.3c.5.5 1.2.7 2 .7 1.3 0 2.5-.5 3.5-1.5s1.5-2.2 1.5-3.5c0-.8-.2-1.5-.7-2-.5-.5-1.2-.7-2-.7-1.3 0-2.5.5-3.5 1.5S7 12.7 7 14c0 .8.2 1.5.7 2.3z"></path><path d="M22 12c-2.5-1.5-5-4-5-8A5 5 0 0 0 7 4c0 4-2.5 6.5-5 8"></path></Icon>;
+// const DollarSign = ({ size, className }) => <Icon size={size} className={className}><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></Icon>;
+// const BookOpen = ({ size, className }) => <Icon size={size} className={className}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></Icon>;
+// const Settings = ({ size, className }) => <Icon size={size} className={className}><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l-.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></Icon>;
+// const LogOut = ({ size, className }) => <Icon size={size} className={className}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></Icon>;
+// const FileText = ({ size, className }) => <Icon size={size} className={className}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></Icon>;
+// const Printer = ({ size, className }) => <Icon size={size} className={className}><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></Icon>;
+// const BarChart2 = ({ size, className }) => <Icon size={size} className={className}><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></Icon>;
+// const Briefcase = ({ size, className }) => <Icon size={size} className={className}><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></Icon>;
+// const Trash2 = ({ size, className }) => <Icon size={size} className={className}><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></Icon>;
+// const X = ({ size, className }) => <Icon size={size} className={className}><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></Icon>;
+// const CreditCard = ({ size, className }) => <Icon size={size} className={className}><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></Icon>;
+// const MessageSquare = ({ size, className }) => <Icon size={size} className={className}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></Icon>;
+
+// // --- MOCK DATA (with new payments structure) ---
+// const initialStock = [ { id: 1, date: '2025-08-14', supplier: 'HPCL', quantity: 10000, total: 950000, type: 'Petrol', payments: [{amount: 950000, date: '2025-08-14', paymentMethod: 'Card'}] }, { id: 2, date: '2025-08-13', supplier: 'IOCL', quantity: 8000, total: 880000, type: 'Diesel', payments: [{amount: 800000, date: '2025-08-13', paymentMethod: 'Cheque'}] } ];
+// const initialSales = [
+//     { id: 1, date: '2025-08-14', customerId: 1, fuelType: 'Diesel', quantity: 500, pricePerLiter: 112, total: 56000, payments: [{amount: 50000, date: '2025-08-14', paymentMethod: 'Cash'}], vehicleNumber: 'AP16TH1234' },
+//     { id: 2, date: '2025-08-14', customerId: 2, fuelType: 'Petrol', quantity: 200, pricePerLiter: 105, total: 21000, payments: [{amount: 21000, date: '2025-08-14', paymentMethod: 'Card', transactionId: 'TXN12345'}], vehicleNumber: 'TS09AB5678' },
+//     { id: 3, date: '2025-08-13', customerId: 1, fuelType: 'Petrol', quantity: 100, pricePerLiter: 105, total: 10500, payments: [], vehicleNumber: 'AP16TH5678' }
+// ];
+// const initialExpenses = [ { id: 1, date: '2025-08-14', category: 'Salary', name: 'Staff', amount: 25000, description: 'Salaries for July', paymentMethod: 'Online' }, { id: 2, date: '2025-08-14', category: 'Maintenance', name: 'Mechanic', amount: 5000, description: 'Pump nozzle replacement', paymentMethod: 'Cash' } ];
+// const initialContacts = [ { id: 1, name: 'ABC Logistics', contact: '9876543210', gstin: '29ABCDE1234F1Z5', address: '123 Main St, Anytown, USA', type: 'Customer' }, { id: 2, name: 'XYZ Transports', contact: '8765432109', address: '456 Oak Ave, Othertown, USA', type: 'Customer' }, { id: 3, name: 'HPCL', type: 'Supplier'}, { id: 4, name: 'IOCL', type: 'Supplier'} ];
+
+// // --- CONTEXT ---
+// const AppContext = createContext();
+
+// // --- HELPERS ---
+// const formatDate = (dateStr) => new Date(dateStr).toLocaleDateString('en-IN');
+// const formatCurrency = (amount) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
+// const getTotalPaid = (payments) => Array.isArray(payments) ? payments.reduce((acc, p) => acc + p.amount, 0) : 0;
+
+// // --- CUSTOM HOOK for LocalStorage ---
+// function useStickyState(defaultValue, key) {
+//     const [value, setValue] = useState(() => {
+//         try {
+//             const stickyValue = window.localStorage.getItem(key);
+//             return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue;
+//         } catch (error) {
+//             console.error("Error parsing JSON from localStorage", error);
+//             return defaultValue;
+//         }
+//     });
+//     useEffect(() => {
+//         try {
+//             window.localStorage.setItem(key, JSON.stringify(value));
+//         } catch (error) {
+//             console.error("Error setting item to localStorage", error);
+//         }
+//     }, [key, value]);
+//     return [value, setValue];
+// }
+
+// // --- LOADING SPINNER COMPONENT ---
+// const Spinner = () => (
+//     <div className="flex items-center justify-center min-h-screen bg-gray-900">
+//         <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-blue-400"></div>
+//     </div>
+// );
+
+// // --- MAIN APP WRAPPER ---
+// function AppWrapper() {
+//     useEffect(() => {
+//         // Add Tailwind CSS
+//         const tailwind = document.createElement('script');
+//         tailwind.src = "https://cdn.tailwindcss.com";
+//         document.head.appendChild(tailwind);
+
+//         // Add XLSX for Excel exports
+//         const xlsx = document.createElement('script');
+//         xlsx.src = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";
+//         xlsx.async = true;
+//         document.body.appendChild(xlsx);
+
+//         return () => { 
+//             if (document.head.contains(tailwind)) document.head.removeChild(tailwind);
+//             if (document.body.contains(xlsx)) document.body.removeChild(xlsx); 
+//         }
+//     }, []);
+
+//     return (
+//         <NotificationProvider>
+//             <App />
+//         </NotificationProvider>
+//     );
+// }
+
+// // --- MAIN APP COMPONENT ---
+// function App() {
+//     // --- STATE ---
+//     const [isLoading, setIsLoading] = useState(true);
+//     const [userRole, setUserRole] = useState(null);
+//     const [currentView, setCurrentView] = useState('dashboard');
+//     const [selectedInvoice, setSelectedInvoice] = useState(null);
+//     const [ledgerModalCustomer, setLedgerModalCustomer] = useState(null);
+//     const [isSaleModalOpen, setIsSaleModalOpen] = useState(false);
+//     const [paymentModalInfo, setPaymentModalInfo] = useState(null); // { sale, customer }
+//     const [confirmationModalInfo, setConfirmationModalInfo] = useState(null); // { sale, customer, paymentAmount }
+//     const [paymentHistoryModalSale, setPaymentHistoryModalSale] = useState(null);
+//     const [customerBillsModalInfo, setCustomerBillsModalInfo] = useState(null); // { customer, sales }
+//     const [purchaseDetailsModalStock, setPurchaseDetailsModalStock] = useState(null);
+//     const [deleteConfirmation, setDeleteConfirmation] = useState(null);
+
+
+//     // --- PERSISTENT STATE ---
+//     const [stock, setStock] = useStickyState(initialStock, 'fuelStock');
+//     const [sales, setSales] = useStickyState(initialSales, 'fuelSales');
+//     const [expenses, setExpenses] = useStickyState(initialExpenses, 'fuelExpenses');
+//     const [contacts, setContacts] = useStickyState(initialContacts, 'fuelContacts');
+    
+//     const { showNotification } = useNotification();
+
+//     const isModalOpen = !!ledgerModalCustomer || isSaleModalOpen || !!paymentModalInfo || !!confirmationModalInfo || !!paymentHistoryModalSale || !!customerBillsModalInfo || !!purchaseDetailsModalStock || !!deleteConfirmation;
+
+//     // --- EFFECT TO CHECK FOR SAVED STATE ---
+//     useEffect(() => {
+//         const savedRole = localStorage.getItem('fuelStationUserRole');
+//         const savedView = localStorage.getItem('fuelStationCurrentView');
+//         if (savedRole) setUserRole(savedRole);
+//         if (savedView) setCurrentView(savedView);
+//         setIsLoading(false);
+//     }, []);
+
+//     // --- DERIVED STATE ---
+//     const contactBalances = useMemo(() => {
+//         const balances = {};
+//         contacts.forEach(c => {
+//             balances[c.id] = { totalBill: 0, paid: 0, due: 0 };
+//         });
+
+//         sales.forEach(s => {
+//             if (balances[s.customerId]) {
+//                 balances[s.customerId].totalBill += s.total;
+//                 balances[s.customerId].paid += getTotalPaid(s.payments);
+//             }
+//         });
+
+//         expenses.forEach(e => {
+//             const contact = contacts.find(c => c.name === e.name);
+//             if (contact && balances[contact.id]) {
+//                 if (e.category === 'Misc. Income') {
+//                     balances[contact.id].paid += e.amount;
+//                 } else if (e.category === 'Misc. Expense') {
+//                     balances[contact.id].totalBill += e.amount;
+//                 }
+//             }
+//         });
+
+//         for (const contactId in balances) {
+//             balances[contactId].due = balances[contactId].totalBill - balances[contactId].paid;
+//         }
+
+//         return balances;
+//     }, [contacts, sales, expenses]);
+
+//     const fuelStockSummary = useMemo(() => {
+//         const petrolIn = stock.filter(s => s.type === 'Petrol').reduce((acc, s) => acc + s.quantity, 0);
+//         const petrolOut = sales.filter(s => s.fuelType === 'Petrol').reduce((acc, s) => acc + s.quantity, 0);
+//         const dieselIn = stock.filter(s => s.type === 'Diesel').reduce((acc, s) => acc + s.quantity, 0);
+//         const dieselOut = sales.filter(s => s.fuelType === 'Diesel').reduce((acc, s) => acc + s.quantity, 0);
+//         return { petrol: petrolIn - petrolOut, diesel: dieselIn - dieselOut };
+//     }, [stock, sales]);
+
+//     const dailySummary = useMemo(() => {
+//         const today = new Date().toISOString().split('T')[0];
+//         const todaysSales = sales.filter(s => s.date === today).reduce((acc, s) => acc + s.total, 0);
+//         const todaysExpenses = expenses.filter(e => e.date === today).reduce((acc, e) => acc + e.amount, 0);
+//         return { sales: todaysSales, expenses: todaysExpenses };
+//     }, [sales, expenses]);
+
+//     const combinedTransactions = useMemo(() => {
+//         const salesPayments = sales.flatMap(sale => {
+//             const customer = contacts.find(c => c.id === sale.customerId);
+//             const salePaymentsArray = Array.isArray(sale.payments) ? sale.payments : [];
+//             return salePaymentsArray.map((payment, index) => ({
+//                 id: `${sale.id}-${index}`,
+//                 date: payment.date,
+//                 name: customer ? customer.name : 'N/A',
+//                 category: 'Sales Receipt',
+//                 description: `Payment for ${sale.quantity}L ${sale.fuelType}`,
+//                 amount: payment.amount,
+//                 paymentMethod: payment.paymentMethod,
+//                 type: 'income',
+//                 isFromSale: true
+//             }));
+//         });
+
+//         const otherTransactions = expenses.map(expense => ({
+//             ...expense,
+//             type: expense.category === 'Misc. Income' ? 'income' : 'expense',
+//             isFromSale: false
+//         }));
+
+//         return [...salesPayments, ...otherTransactions].sort((a, b) => new Date(b.date) - new Date(a.date));
+//     }, [sales, expenses, contacts]);
+
+//     // --- HANDLERS ---
+//     const handleSetView = (view) => {
+//         localStorage.setItem('fuelStationCurrentView', view);
+//         setCurrentView(view);
+//     };
+
+//     const handleSelectRole = (role) => {
+//         localStorage.setItem('fuelStationUserRole', role);
+//         setUserRole(role);
+//     };
+
+//     const handleLogout = () => {
+//         localStorage.clear();
+//         setUserRole(null);
+//         setCurrentView('dashboard');
+//         setStock(initialStock);
+//         setSales(initialSales);
+//         setExpenses(initialExpenses);
+//         setContacts(initialContacts);
+//         showNotification('You have been logged out.');
+//     };
+
+//     const addSale = (newSale) => {
+//         setSales(prev => [{ ...newSale, id: Date.now() }, ...prev]);
+//         showNotification('Sale recorded successfully!', 'success');
+//     };
+    
+//     const addMultipleSales = (newSales) => {
+//         const salesWithIds = newSales.map(s => ({...s, id: Date.now() + Math.random()}));
+//         setSales(prev => [...salesWithIds, ...prev]);
+//         showNotification(`${newSales.length} sales recorded successfully!`, 'success');
+//     };
+
+//     const addMultiplePurchases = (newPurchases) => {
+//         const purchasesWithIds = newPurchases.map(p => ({...p, id: Date.now() + Math.random()}));
+//         setStock(prev => [...purchasesWithIds, ...prev]);
+
+//         const expensesFromPurchases = newPurchases.map(p => ({
+//             id: Date.now() + Math.random(),
+//             date: p.date,
+//             category: 'Fuel Purchase',
+//             amount: getTotalPaid(p.payments),
+//             description: `Payment for ${p.quantity}L ${p.type}`,
+//             name: p.supplier,
+//             paymentMethod: p.paymentMethod
+//         }));
+//         setExpenses(prev => [...expensesFromPurchases, ...prev]);
+
+//         showNotification(`${newPurchases.length} purchases recorded and added to expenses!`, 'success');
+//     };
+
+//     const addPayment = (saleId, paymentDetails) => {
+//         const newSales = sales.map(sale => {
+//             if (sale.id === saleId) {
+//                 const currentPayments = Array.isArray(sale.payments) ? sale.payments : [];
+//                 return {
+//                     ...sale,
+//                     payments: [...currentPayments, paymentDetails]
+//                 };
+//             }
+//             return sale;
+//         });
+
+//         const updatedSale = newSales.find(s => s.id === saleId);
+
+//         if (updatedSale) {
+//             setSales(newSales);
+//             showNotification('Payment added successfully!', 'success');
+//             setPaymentModalInfo(null);
+//             setConfirmationModalInfo({
+//                 sale: updatedSale,
+//                 customer: contacts.find(c => c.id === updatedSale.customerId),
+//                 paymentAmount: paymentDetails.amount
+//             });
+//         }
+//     };
+    
+//     const addPurchasePayment = (stockId, paymentDetails) => {
+//         const newStock = stock.map(item => {
+//             if (item.id === stockId) {
+//                 const currentPayments = Array.isArray(item.payments) ? item.payments : [];
+//                 return {
+//                     ...item,
+//                     payments: [...currentPayments, paymentDetails]
+//                 };
+//             }
+//             return item;
+//         });
+
+//         const updatedStockItem = newStock.find(s => s.id === stockId);
+
+//         if (updatedStockItem) {
+//             setStock(newStock);
+//             const expense = {
+//                 id: Date.now() + Math.random(),
+//                 date: paymentDetails.date,
+//                 category: 'Fuel Purchase Payment',
+//                 amount: paymentDetails.amount,
+//                 description: `Payment to ${updatedStockItem.supplier}`
+//             };
+//             setExpenses(prev => [{...expense}, ...prev]);
+//             setPurchaseDetailsModalStock(updatedStockItem);
+//             showNotification('Payment for purchase recorded!', 'success');
+//         }
+//     };
+
+
+//     const addStock = (newStockEntry) => {
+//         const stockWithId = { ...newStockEntry, id: Date.now() };
+//         setStock(prev => [stockWithId, ...prev]);
+
+//         const expenseFromStock = {
+//             id: Date.now() + Math.random(),
+//             date: newStockEntry.date,
+//             category: 'Fuel Purchase',
+//             amount: getTotalPaid(newStockEntry.payments),
+//             description: `Purchase of ${newStockEntry.quantity}L ${newStockEntry.type} from ${newStockEntry.supplier}`
+//         };
+//         setExpenses(prev => [expenseFromStock, ...prev]);
+//         showNotification('Stock added and expense recorded!', 'success');
+//     };
+    
+//     const addExpense = (newExpense) => {
+//         // Add the transaction to the expenses list first
+//         setExpenses(prev => [{ ...newExpense, id: Date.now() }, ...prev]);
+    
+//         // Logic for applying payments to SUPPLIERS for their purchases
+//         if (newExpense.category === 'Misc. Expense') {
+//             const supplierName = newExpense.name;
+//             let paymentAmount = newExpense.amount;
+//             // Use a functional update with a deep copy to ensure state updates correctly
+//             setStock(currentStock => {
+//                 const newStock = JSON.parse(JSON.stringify(currentStock));
+    
+//                 const supplierStockItems = newStock
+//                     .filter(item => item.supplier === supplierName && (item.total - getTotalPaid(item.payments)) > 0)
+//                     .sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+//                 for (const stockItem of supplierStockItems) {
+//                     if (paymentAmount <= 0) break;
+//                     const due = stockItem.total - getTotalPaid(stockItem.payments);
+//                     const amountToPay = Math.min(paymentAmount, due);
+                    
+//                     const paymentDetails = {
+//                         amount: amountToPay,
+//                         date: newExpense.date,
+//                         paymentMethod: newExpense.paymentMethod
+//                     };
+                    
+//                     if (!Array.isArray(stockItem.payments)) stockItem.payments = [];
+//                     stockItem.payments.push(paymentDetails);
+//                     paymentAmount -= amountToPay;
+//                 }
+//                 return newStock;
+//             });
+//         }
+    
+//         // Logic for applying payments from CUSTOMERS to their sales
+//         if (newExpense.category === 'Misc. Income') {
+//             const customerName = newExpense.name;
+//             const customer = contacts.find(c => c.name === customerName);
+//             if (customer) {
+//                 let paymentAmount = newExpense.amount;
+//                 // Use a functional update to correctly handle state changes
+//                 setSales(currentSales => {
+//                     // Create a deep copy to avoid direct state mutation
+//                     const newSales = JSON.parse(JSON.stringify(currentSales));
+    
+//                     // Find all sales for the customer that still have a due amount
+//                     const customerUnpaidSales = newSales
+//                         .filter(sale => sale.customerId === customer.id && (sale.total - getTotalPaid(sale.payments)) > 0)
+//                         // **FIXED LOGIC**: Sort by the OLDEST date first (FIFO)
+//                         .sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+//                     // Apply the payment amount across the unpaid sales (waterfall method)
+//                     for (const sale of customerUnpaidSales) {
+//                         if (paymentAmount <= 0) break; // Stop if the payment is fully applied
+    
+//                         const due = sale.total - getTotalPaid(sale.payments);
+//                         const amountToApply = Math.min(paymentAmount, due);
+    
+//                         const paymentDetails = {
+//                             amount: amountToApply,
+//                             date: newExpense.date,
+//                             paymentMethod: newExpense.paymentMethod,
+//                             transactionId: `Paid via R&P: ${newExpense.description}` // Add a reference
+//                         };
+    
+//                         // Initialize payments array if it doesn't exist
+//                         if (!Array.isArray(sale.payments)) {
+//                             sale.payments = [];
+//                         }
+//                         sale.payments.push(paymentDetails);
+//                         paymentAmount -= amountToApply; // Decrease the remaining payment amount
+//                     }
+                    
+//                     // Return the modified sales array to update the state
+//                     return newSales;
+//                 });
+//             }
+//         }
+    
+//         showNotification('Transaction recorded and applied!', 'success');
+//     };
+    
+//     const deleteSale = (saleId) => {
+//         setDeleteConfirmation({ type: 'sale', id: saleId });
+//     };
+    
+//     const deletePurchase = (purchaseId) => {
+//         setDeleteConfirmation({ type: 'purchase', id: purchaseId });
+//     };
+
+//     const deleteExpense = (expenseId) => {
+//         setDeleteConfirmation({ type: 'expense', id: expenseId });
+//     };
+
+//     const handleConfirmDelete = () => {
+//         if (deleteConfirmation) {
+//             if (deleteConfirmation.type === 'sale') {
+//                 setSales(prev => prev.filter(sale => sale.id !== deleteConfirmation.id));
+//                 showNotification('Sale deleted successfully.', 'error');
+//             } else if (deleteConfirmation.type === 'purchase') {
+//                 setStock(prev => prev.filter(purchase => purchase.id !== deleteConfirmation.id));
+//                 showNotification('Purchase deleted successfully.', 'error');
+//             } else if (deleteConfirmation.type === 'expense') {
+//                 setExpenses(prev => prev.filter(expense => expense.id !== deleteConfirmation.id));
+//                 showNotification('Expense deleted successfully.', 'error');
+//             }
+//             setDeleteConfirmation(null);
+//         }
+//     };
+    
+//     const addContact = (contactData) => {
+//         // Check for duplicates before adding
+//         if (contacts.some(c => c.name === contactData.name)) {
+//             showNotification('A contact with this name already exists.', 'error');
+//             return null; // Indicate failure
+//         }
+//         const newContact = { id: Date.now(), ...contactData };
+//         setContacts(prev => [...prev, newContact]);
+//         showNotification('New contact added!', 'success');
+//         return newContact;
+//     };
+    
+//     const exportToExcel = (data, fileName) => {
+//         if (typeof window.XLSX === 'undefined') {
+//             showNotification('Excel export library is loading. Please try again.', 'error');
+//             return;
+//         }
+//         try {
+//             const ws = window.XLSX.utils.json_to_sheet(data);
+//             const wb = window.XLSX.utils.book_new();
+//             window.XLSX.utils.book_append_sheet(wb, ws, 'Data');
+//             window.XLSX.writeFile(wb, `${fileName}_${new Date().toISOString().split('T')[0]}.xlsx`);
+//             showNotification('Data exported to Excel!', 'success');
+//         } catch (error) {
+//             console.error("Excel export failed:", error);
+//             showNotification('Failed to export data.', 'error');
+//         }
+//     };
+
+//     const contextValue = { userRole, stock, addStock, sales, addSale, addMultipleSales, addMultiplePurchases, addPayment, addPurchasePayment, expenses, addExpense, deleteSale, deletePurchase, deleteExpense, contacts, addContact, setCurrentView: handleSetView, fuelStockSummary, dailySummary, setSelectedInvoice, setLedgerModalCustomer, customerBalances: contactBalances, setIsSaleModalOpen, setPaymentModalInfo, setPaymentHistoryModalSale, setCustomerBillsModalInfo, setPurchaseDetailsModalStock, exportToExcel, showNotification, combinedTransactions };
+
+//     // --- RENDER ---
+//     if (isLoading) return <Spinner />;
+//     if (selectedInvoice) return <InvoicePage sale={selectedInvoice} customer={contacts.find(c => c.id === selectedInvoice.customerId)} onBack={() => setSelectedInvoice(null)} />;
+    
+//     return (
+//         <AppContext.Provider value={contextValue}>
+//             {!userRole && <RoleSelectionScreen onSelectRole={handleSelectRole} />}
+//             {userRole && (
+//                 <div className="flex h-screen bg-gray-100 font-sans">
+//                     {!isModalOpen && <Sidebar onLogout={handleLogout} />}
+//                     <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+//                         <Header />
+//                         <div className="mt-6"><ViewRenderer currentView={currentView} /></div>
+//                     </main>
+//                 </div>
+//             )}
+//             {isSaleModalOpen && <NewSaleModal onClose={() => setIsSaleModalOpen(false)} />}
+//             {ledgerModalCustomer && <CustomerLedgerModal customer={ledgerModalCustomer} onClose={() => setLedgerModalCustomer(null)} />}
+//             {paymentModalInfo && <PaymentModal sale={paymentModalInfo.sale} customer={paymentModalInfo.customer} onClose={() => setPaymentModalInfo(null)} />}
+//             {confirmationModalInfo && <PaymentConfirmationModal info={confirmationModalInfo} onClose={() => setConfirmationModalInfo(null)} />}
+//             {paymentHistoryModalSale && <PaymentHistoryModal sale={paymentHistoryModalSale} onClose={() => setPaymentHistoryModalSale(null)} />}
+//             {customerBillsModalInfo && <CustomerBillsModal customer={customerBillsModalInfo.customer} sales={sales.filter(s => s.customerId === customerBillsModalInfo.customer.id)} onClose={() => setCustomerBillsModalInfo(null)} />}
+//             {purchaseDetailsModalStock && <PurchaseDetailsModal stockItem={purchaseDetailsModalStock} onClose={() => setPurchaseDetailsModalStock(null)} />}
+//             {deleteConfirmation && (
+//                 <ConfirmationModal
+//                     isOpen={!!deleteConfirmation}
+//                     onClose={() => setDeleteConfirmation(null)}
+//                     onConfirm={handleConfirmDelete}
+//                     title="Confirm Deletion"
+//                     message={`Are you sure you want to delete this ${deleteConfirmation.type}? This action cannot be undone.`}
+//                 />
+//             )}
+//         </AppContext.Provider>
+//     );
+// }
+
+// // --- ROLE-BASED ACCESS ---
+// const useAccess = () => {
+//     const { userRole } = useContext(AppContext);
+//     const permissions = {
+//         Admin: ['dashboard', 'stock', 'new-sale', 'bulk-purchases', 'transactions', 'ledger', 'receipts-payments', 'reports', 'settings', 'addSale', 'addContact'],
+//         Manager: ['dashboard', 'stock', 'new-sale', 'bulk-purchases', 'transactions', 'ledger', 'reports', 'addSale', 'addContact'],
+//         Cashier: ['dashboard', 'new-sale', 'transactions', 'ledger', 'invoice', 'addSale', 'addContact'],
+//     };
+//     return (feature) => permissions[userRole]?.includes(feature) || false;
+// };
+
+// // --- LAYOUT COMPONENTS ---
+// const RoleSelectionScreen = ({ onSelectRole }) => (
+//     <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+//         <div className="text-center p-10 bg-gray-800 rounded-2xl shadow-2xl">
+//             <Droplets className="mx-auto h-16 w-16 text-blue-400 mb-4" />
+//             <h1 className="text-4xl font-bold mb-2">Fuel Station OS</h1>
+//             <p className="text-gray-400 mb-8">Select your role to continue</p>
+//             <div className="flex flex-col sm:flex-row gap-4">
+//                 {['Admin', 'Manager', 'Cashier'].map(role => (
+//                     <button key={role} onClick={() => onSelectRole(role)} className="w-full sm:w-40 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-lg font-semibold transition-transform transform hover:scale-105">{role}</button>
+//                 ))}
+//             </div>
+//         </div>
+//     </div>
+// );
+
+// const Sidebar = ({ onLogout }) => {
+//     const { userRole, setCurrentView, currentView: activeView } = useContext(AppContext);
+//     const canAccess = useAccess();
+//     const navItems = [
+//         { view: 'dashboard', label: 'Dashboard', icon: BarChart2 },
+//         { view: 'stock', label: 'Fuel Stock', icon: Droplets },
+//         { view: 'new-sale', label: 'New Sale', icon: DollarSign },
+//         { view: 'bulk-purchases', label: 'Bulk Purchases', icon: Briefcase },
+//         { view: 'transactions', label: 'Transactions', icon: CreditCard },
+//         { view: 'ledger', label: 'Customer Ledger', icon: BookOpen },
+//         { view: 'receipts-payments', label: 'Receipts & Payments', icon: Briefcase },
+//         { view: 'reports', label: 'Reports', icon: FileText },
+//         { view: 'settings', label: 'Settings', icon: Settings },
+//     ];
+//     return (
+//         <aside className="w-64 bg-gray-800 text-white flex-col hidden md:flex">
+//             <div className="p-6 text-2xl font-bold border-b border-gray-700 flex items-center gap-2"><Droplets className="text-blue-400" /><span>FuelOS</span></div>
+//             <nav className="flex-1 p-4">
+//                 <ul>
+//                     {navItems.map(item => canAccess(item.view) && (
+//                         <li key={item.view} className="mb-2">
+//                             <button onClick={() => setCurrentView(item.view)} className={`w-full flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${activeView === item.view ? 'bg-blue-600' : 'hover:bg-gray-700'}`}><item.icon size={20} />{item.label}</button>
+//                         </li>
+//                     ))}
+//                 </ul>
+//             </nav>
+//             <div className="p-4 border-t border-gray-700">
+//                 <div className="mb-4"><p className="text-sm text-gray-400">Logged in as:</p><p className="font-semibold text-lg">{userRole}</p></div>
+//                 <button onClick={onLogout} className="w-full flex items-center justify-center gap-3 px-4 py-2 rounded-md bg-red-600 hover:bg-red-700 transition-colors"><LogOut size={20} />Logout</button>
+//             </div>
+//         </aside>
+//     );
+// };
+
+// const Header = () => { const { userRole } = useContext(AppContext); return (<header className="flex justify-between items-center"><h1 className="text-3xl font-bold text-gray-800">Welcome, {userRole}!</h1><p className="text-gray-500">{new Date().toDateString()}</p></header>); };
+
+// const ViewRenderer = ({ currentView }) => {
+//     switch (currentView) {
+//         case 'dashboard': return <Dashboard />;
+//         case 'stock': return <StockManagement />;
+//         case 'new-sale': return <SalesManagement />;
+//         case 'bulk-purchases': return <BulkPurchasesEntry />;
+//         case 'transactions': return <Transactions />;
+//         case 'ledger': return <CustomerLedger />;
+//         case 'receipts-payments': return <ReceiptsAndPayments />;
+//         case 'reports': return <Reports />;
+//         case 'settings': return <SettingsPage />;
+//         default: return <Dashboard />;
+//     }
+// };
+
+// // --- FEATURE COMPONENTS ---
+// const Dashboard = () => {
+//     const { fuelStockSummary, dailySummary } = useContext(AppContext);
+//     return (
+//         <div>
+//             <h2 className="text-2xl font-semibold mb-4 text-gray-700">Dashboard Overview</h2>
+//             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+//                 <StatCard title="Petrol Stock" value={`${fuelStockSummary.petrol.toLocaleString()} L`} icon={Droplets} color="blue" />
+//                 <StatCard title="Diesel Stock" value={`${fuelStockSummary.diesel.toLocaleString()} L`} icon={Droplets} color="orange" />
+//                 <StatCard title="Today's Sales" value={formatCurrency(dailySummary.sales)} icon={DollarSign} color="green" />
+//                 <StatCard title="Today's Expenses" value={formatCurrency(dailySummary.expenses)} icon={Briefcase} color="red" />
+//             </div>
+//             <div className="mt-8"><DailyClosing /></div>
+//         </div>
+//     );
+// };
+
+// const StatCard = ({ title, value, icon: Icon, color }) => {
+//     const colors = { blue: 'from-blue-500 to-blue-600', orange: 'from-orange-500 to-orange-600', green: 'from-green-500 to-green-600', red: 'from-red-500 to-red-600' };
+//     return (
+//         <div className={`bg-gradient-to-br ${colors[color]} text-white p-6 rounded-xl shadow-lg flex items-center justify-between`}>
+//             <div><p className="text-lg font-medium">{title}</p><p className="text-3xl font-bold">{value}</p></div>
+//             <Icon size={48} className="opacity-50" />
+//         </div>
+//     );
+// };
+
+// const StockManagement = () => {
+//     const { stock, addStock, exportToExcel, setPurchaseDetailsModalStock, deletePurchase } = useContext(AppContext);
+//     const canAccess = useAccess();
+//     return (
+//         <Card title="Fuel Stock Management" actionButton={canAccess('Admin') && <button onClick={() => exportToExcel(stock, 'stock_records')} className="btn-secondary"><FileDown size={16} /> Export</button>}>
+//             {canAccess('Admin') && <StockForm onSubmit={addStock} />}
+//             <div className="mt-6"><h3 className="text-lg font-semibold mb-2">Current Stock Records</h3>
+//             <DataTable
+//                 headers={['Date', 'Supplier', 'Fuel Type', 'Quantity (L)', 'Total Cost', 'Paid', 'Due', 'Actions']}
+//                 rows={stock.map(s => {
+//                     const totalPaid = getTotalPaid(s.payments);
+//                     const due = s.total - totalPaid;
+//                     return [
+//                         formatDate(s.date),
+//                         s.supplier,
+//                         s.type,
+//                         s.quantity.toLocaleString(),
+//                         formatCurrency(s.total),
+//                         formatCurrency(totalPaid),
+//                         <span className={due > 0 ? 'font-bold text-red-600' : ''}>{formatCurrency(due)}</span>,
+//                         <div className="flex items-center gap-2">
+//                            <button onClick={() => setPurchaseDetailsModalStock(s)} className="btn-primary py-1 px-3 text-xs">View Details</button>
+//                            <button onClick={() => deletePurchase(s.id)} className="btn-icon text-red-600"><Trash2 size={18} /></button>
+//                         </div>
+//                     ];
+//                 })}
+//             />
+//             </div>
+//         </Card>
+//     );
+// };
+
+// const BulkPurchasesEntry = () => {
+//     const { addMultiplePurchases, contacts, addContact } = useContext(AppContext);
+//     const [isAddContactModalOpen, setIsAddContactModalOpen] = useState(false);
+//     const [purchaseRows, setPurchaseRows] = useState([{ date: new Date().toISOString().split('T')[0], supplier: '', type: 'Petrol', quantity: '', total: '', paid: '', paymentMethod: 'Cash' }]);
+
+//     const handleAddRow = () => {
+//         setPurchaseRows([...purchaseRows, { date: new Date().toISOString().split('T')[0], supplier: '', type: 'Petrol', quantity: '', total: '', paid: '', paymentMethod: 'Cash' }]);
+//     };
+    
+//     const handleRemoveRow = (index) => {
+//         if (purchaseRows.length > 1) {
+//             const newRows = [...purchaseRows];
+//             newRows.splice(index, 1);
+//             setPurchaseRows(newRows);
+//         }
+//     };
+
+//     const handleChange = (index, e) => {
+//         const { name, value } = e.target;
+//         const newRows = [...purchaseRows];
+//         newRows[index][name] = value;
+//         setPurchaseRows(newRows);
+//         if (index === purchaseRows.length - 1 && name === 'paid') {
+//             handleAddRow();
+//         }
+//     };
+
+//     const handleSaveAll = () => {
+//         const validPurchases = purchaseRows.filter(row => row.supplier && row.quantity && row.total);
+//         const formattedPurchases = validPurchases.map(row => ({
+//             ...row,
+//             quantity: parseFloat(row.quantity),
+//             total: parseFloat(row.total),
+//             payments: parseFloat(row.paid) > 0 ? [{ amount: parseFloat(row.paid), date: row.date, paymentMethod: row.paymentMethod }] : []
+//         }));
+//         addMultiplePurchases(formattedPurchases);
+//         setPurchaseRows([{ date: new Date().toISOString().split('T')[0], supplier: '', type: 'Petrol', quantity: '', total: '', paid: '', paymentMethod: 'Cash' }]);
+//     };
+
+//     const handleNewContactSave = (contactData) => {
+//         const newContact = addContact({...contactData, type: 'Supplier'});
+//         if (newContact) {
+//             setIsAddContactModalOpen(false);
+//             setPurchaseRows(prev => {
+//                 const newRows = [...prev];
+//                 newRows[newRows.length - 1].supplier = newContact.name;
+//                 return newRows;
+//             });
+//         }
+//     };
+
+//     return (
+//         <>
+//             <Card title="Bulk Purchases Entry" actionButton={<button onClick={() => setIsAddContactModalOpen(true)} className="btn-primary"><UserPlus size={16}/> New Supplier</button>}>
+//                 <div className="space-y-4">
+//                     {purchaseRows.map((row, index) => (
+//                         <div key={index} className="grid grid-cols-1 md:grid-cols-8 gap-2 p-2 border rounded-lg bg-gray-50 items-center">
+//                             <input type="date" name="date" value={row.date} onChange={(e) => handleChange(index, e)} className="input-field" />
+//                             <select name="supplier" value={row.supplier} onChange={(e) => handleChange(index, e)} className="input-field md:col-span-2">
+//                                 <option value="">Select Supplier</option>
+//                                 {contacts.filter(c => c.type === 'Supplier' || c.type === 'Both').map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
+//                             </select>
+//                             <select name="type" value={row.type} onChange={(e) => handleChange(index, e)} className="input-field"><option>Petrol</option><option>Diesel</option></select>
+//                             <input type="number" name="quantity" value={row.quantity} onChange={(e) => handleChange(index, e)} placeholder="Quantity (L)" className="input-field" />
+//                             <input type="number" name="total" value={row.total} onChange={(e) => handleChange(index, e)} placeholder="Total Cost" className="input-field" />
+//                             <input type="number" name="paid" value={row.paid} onChange={(e) => handleChange(index, e)} placeholder="Amount Paid" className="input-field" />
+//                             <select name="paymentMethod" value={row.paymentMethod} onChange={(e) => handleChange(index, e)} className="input-field">
+//                                 <option>Cash</option>
+//                                 <option>Online</option>
+//                             </select>
+//                             <button onClick={() => handleRemoveRow(index)} className="btn-icon text-red-500"><Trash2 size={18} /></button>
+//                         </div>
+//                     ))}
+//                 </div>
+//                 <div className="flex justify-between mt-4">
+//                     <button onClick={handleAddRow} className="btn-secondary"><PlusCircle size={16} /> Add Row</button>
+//                     <button onClick={handleSaveAll} className="btn-primary">Save All Purchases</button>
+//                 </div>
+//             </Card>
+//             {isAddContactModalOpen && <AddContactModal onSave={handleNewContactSave} onClose={() => setIsAddContactModalOpen(false)} contactType="Supplier"/>}
+//         </>
+//     );
+// };
+
+
+// const StockForm = ({ onSubmit }) => {
+//     const [formData, setFormData] = useState({ date: '', supplier: '', quantity: '', total: '', paid: '', type: 'Petrol' });
+//     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//         const paidAmount = parseFloat(formData.paid);
+//         const purchaseData = {
+//             ...formData,
+//             quantity: parseFloat(formData.quantity),
+//             total: parseFloat(formData.total),
+//             payments: paidAmount > 0 ? [{ amount: paidAmount, date: formData.date, paymentMethod: 'N/A' }] : []
+//         };
+//         delete purchaseData.paid;
+//         onSubmit(purchaseData);
+//         setFormData({ date: '', supplier: '', quantity: '', total: '', paid: '', type: 'Petrol' });
+//     };
+//     return (
+//         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-6 gap-4 p-4 border rounded-lg bg-gray-50">
+//             <input type="date" name="date" value={formData.date} onChange={handleChange} className="input-field" required />
+//             <input type="text" name="supplier" value={formData.supplier} onChange={handleChange} placeholder="Supplier" className="input-field" required />
+//             <select name="type" value={formData.type} onChange={handleChange} className="input-field"><option>Petrol</option><option>Diesel</option></select>
+//             <input type="number" name="quantity" value={formData.quantity} onWheel={e => e.target.blur()} onChange={handleChange} placeholder="Quantity (L)" className="input-field" required />
+//             <input type="number" name="total" value={formData.total} onChange={handleChange} onWheel={e => e.target.blur()} placeholder="Total Cost" className="input-field" required />
+//             <input type="number" name="paid" value={formData.paid} onChange={handleChange} onWheel={e => e.target.blur()} placeholder="Amount Paid" className="input-field" required />
+//             <button type="submit" className="btn-primary col-span-1 md:col-span-6"><PlusCircle size={16} /> Add Stock</button>
+//         </form>
+//     );
+// };
+
+// const SalesManagement = () => {
+//     const { sales, contacts, setSelectedInvoice, setIsSaleModalOpen, deleteSale } = useContext(AppContext);
+//     const [startDate, setStartDate] = useState('');
+//     const [endDate, setEndDate] = useState('');
+//     const canAccess = useAccess();
+
+//     const filteredSales = useMemo(() => {
+//         return sales
+//             .filter(s => {
+//                 if (!startDate && !endDate) return true;
+//                 const saleDate = new Date(s.date);
+//                 const start = startDate ? new Date(startDate) : null;
+//                 const end = endDate ? new Date(endDate) : null;
+//                 if(start) start.setHours(0,0,0,0);
+//                 if(end) end.setHours(23,59,59,999);
+//                 if (start && end) return saleDate >= start && saleDate <= end;
+//                 if (start) return saleDate >= start;
+//                 if (end) return saleDate <= end;
+//                 return true;
+//             })
+//             .sort((a, b) => new Date(b.date) - new Date(a.date));
+//     }, [sales, startDate, endDate]);
+
+//     const clearFilter = () => {
+//         setStartDate('');
+//         setEndDate('');
+//     };
+
+//     const getTitle = () => {
+//         if (startDate && endDate) return `Sales from ${formatDate(startDate)} to ${formatDate(endDate)}`;
+//         if (startDate) return `Sales from ${formatDate(startDate)}`;
+//         if (endDate) return `Sales until ${formatDate(endDate)}`;
+//         return 'All Recent Sales';
+//     };
+
+//     return (
+//         <Card title="Sales Management" actionButton={canAccess('addSale') && <button onClick={() => setIsSaleModalOpen(true)} className="btn-primary"><PlusCircle size={16}/> New Sale</button>}>
+//             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 border rounded-lg bg-gray-50 mb-4">
+//                 <div><label className="block text-sm font-medium text-gray-700">Start Date</label><input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="input-field mt-1" /></div>
+//                 <div><label className="block text-sm font-medium text-gray-700">End Date</label><input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="input-field mt-1" /></div>
+//                 <div className="flex items-end"><button onClick={clearFilter} className="btn-secondary w-full">Clear Filter</button></div>
+//             </div>
+//             <div className="mt-6"><h3 className="text-lg font-semibold mb-2">{getTitle()}</h3><DataTable headers={['Date', 'Customer', 'Fuel Type', 'Qty (L)', 'Total', 'Paid', 'Due', 'Actions']} rows={filteredSales.map(s => {
+//                 const totalPaid = getTotalPaid(s.payments);
+//                 const due = s.total - totalPaid;
+//                 return [formatDate(s.date), contacts.find(c => c.id === s.customerId)?.name || 'N/A', s.fuelType, s.quantity.toLocaleString(), formatCurrency(s.total), formatCurrency(totalPaid), <span className={due > 0 ? 'font-bold text-red-600' : ''}>{formatCurrency(due)}</span>, <div className="flex items-center gap-2"><button onClick={() => setSelectedInvoice(s)} className="btn-icon text-blue-600"><Printer size={18} /></button><button onClick={() => deleteSale(s.id)} className="btn-icon text-red-600"><Trash2 size={18} /></button></div>];
+//             })} /></div>
+//         </Card>
+//     );
+// };
+
+// const Transactions = () => {
+//     const { contacts, sales, setCustomerBillsModalInfo, customerBalances, exportToExcel } = useContext(AppContext);
+//     const [searchTerm, setSearchTerm] = useState('');
+
+//     const filteredCustomers = useMemo(() => {
+//         const customerContacts = contacts.filter(c => c.type === 'Customer' || c.type === 'Both');
+//         if (!searchTerm) return customerContacts;
+//         return customerContacts.filter(c => c.name.toLowerCase().includes(searchTerm.toLowerCase()));
+//     }, [contacts, searchTerm]);
+    
+//     const handleExportAll = () => {
+//         const dataToExport = sales.map(s => {
+//             const customer = contacts.find(c => c.id === s.customerId);
+//             const totalPaid = getTotalPaid(s.payments);
+//             const due = s.total - totalPaid;
+//             return {
+//                 'Date': formatDate(s.date),
+//                 'Customer Name': customer?.name || 'N/A',
+//                 'Total Bill': s.total,
+//                 'Paid': totalPaid,
+//                 'Due': due
+//             }
+//         });
+//         exportToExcel(dataToExport, 'all_transactions');
+//     };
+
+//     return (
+//         <Card title="Customer Transactions" actionButton={<button onClick={handleExportAll} className="btn-secondary"><FileDown size={16}/> Export All</button>}>
+//             <div className="mb-4">
+//                 <input
+//                     type="text"
+//                     placeholder="Search by customer name..."
+//                     value={searchTerm}
+//                     onChange={e => setSearchTerm(e.target.value)}
+//                     className="input-field w-full max-w-sm"
+//                 />
+//             </div>
+//             <DataTable
+//                 headers={['Customer Name', 'Total Bill Amount', 'Total Due', 'Actions']}
+//                 rows={filteredCustomers.map(c => {
+//                     const balance = customerBalances[c.id] || { totalBill: 0, due: 0 };
+//                     return [
+//                         c.name,
+//                         formatCurrency(balance.totalBill),
+//                         <span className={`font-bold ${balance.due > 0 ? 'text-red-600' : 'text-green-600'}`}>{formatCurrency(balance.due)}</span>,
+//                         <button
+//                             onClick={() => setCustomerBillsModalInfo({ customer: c, sales: sales.filter(s => s.customerId === c.id) })}
+//                             className="btn-primary py-1 px-3 text-xs"
+//                         >
+//                             View Bills
+//                         </button>
+//                     ];
+//                 })}
+//             />
+//         </Card>
+//     );
+// };
+
+// const CustomerLedger = () => {
+//     const { contacts, setLedgerModalCustomer, customerBalances } = useContext(AppContext);
+//     const [searchTerm, setSearchTerm] = useState('');
+
+//     const filteredCustomers = useMemo(() => {
+//         const customerContacts = contacts.filter(c => c.type === 'Customer' || c.type === 'Both');
+//         if (!searchTerm) return customerContacts;
+//         return customerContacts.filter(c => c.name.toLowerCase().includes(searchTerm.toLowerCase()));
+//     }, [contacts, searchTerm]);
+
+//     return (
+//         <Card title="Customer Ledger">
+//             <div className="flex items-center gap-2 mb-4">
+//                 <input type="text" placeholder="Search by customer name..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="input-field w-full max-w-xs" />
+//                 <button onClick={() => setSearchTerm('')} className="btn-secondary">Clear</button>
+//             </div>
+//             <div className="mt-6 overflow-x-auto">
+//                 <table className="w-full text-sm text-left text-gray-500">
+//                     <thead className="text-xs text-gray-700 uppercase bg-gray-50"><tr><th className="px-6 py-3">Name</th><th className="px-6 py-3">Contact</th><th className="px-6 py-3">Total Bill</th><th className="px-6 py-3">Total Paid</th><th className="px-6 py-3">Total Due</th><th className="px-6 py-3 text-center">Actions</th></tr></thead>
+//                     <tbody>
+//                         {filteredCustomers.map(c => (
+//                             <tr key={c.id} className="bg-white border-b hover:bg-gray-50">
+//                                 <td className="px-6 py-4 font-medium text-gray-900">{c.name}</td>
+//                                 <td className="px-6 py-4">{c.contact}</td>
+//                                 <td className="px-6 py-4 font-semibold">{formatCurrency(customerBalances[c.id]?.totalBill || 0)}</td>
+//                                 <td className="px-6 py-4 font-semibold text-green-600">{formatCurrency(customerBalances[c.id]?.paid || 0)}</td>
+//                                 <td className="px-6 py-4 font-semibold text-red-600">{formatCurrency(customerBalances[c.id]?.due || 0)}</td>
+//                                 <td className="px-6 py-4 flex justify-center items-center gap-2"><button onClick={() => setLedgerModalCustomer(c)} className="btn-primary py-1 px-3 text-xs">View Details</button></td>
+//                             </tr>
+//                         ))}
+//                     </tbody>
+//                 </table>
+//             </div>
+//         </Card>
+//     );
+// };
+
+// const ReceiptsAndPayments = () => {
+//     const { combinedTransactions, addExpense, deleteExpense, contacts, addContact, customerBalances } = useContext(AppContext);
+//     const [entryDate, setEntryDate] = useState(new Date().toISOString().split('T')[0]);
+//     const [startDate, setStartDate] = useState('');
+//     const [endDate, setEndDate] = useState('');
+//     const [isAddContactModalOpen, setIsAddContactModalOpen] = useState(false);
+//     const [formData, setFormData] = useState({ type: 'Sale', name: '', amount: '', description: '', paymentMethod: 'Cash' });
+
+
+//     const filteredTransactions = useMemo(() => {
+//         return combinedTransactions.filter(t => {
+//             if (!startDate && !endDate) return true;
+//             const transactionDate = new Date(t.date);
+//             const start = startDate ? new Date(startDate) : null;
+//             const end = endDate ? new Date(endDate) : null;
+//             if(start) start.setHours(0,0,0,0);
+//             if(end) end.setHours(23,59,59,999);
+//             if (start && end) return transactionDate >= start && transactionDate <= end;
+//             if (start) return transactionDate >= start;
+//             if (end) return transactionDate <= end;
+//             return true;
+//         });
+//     }, [combinedTransactions, startDate, endDate]);
+    
+//     const handleNewContactSave = (contactData) => {
+//         const newContact = addContact(contactData);
+//         if (newContact) {
+//             setIsAddContactModalOpen(false);
+//             setFormData(prev => ({...prev, name: newContact.name })); // Auto-select new contact
+//         }
+//     };
+
+
+//     return (
+//         <>
+//             <Card 
+//                 title="Receipts & Payments" 
+//                 actionButton={
+//                     <button onClick={() => setIsAddContactModalOpen(true)} className="btn-primary"><UserPlus size={16}/> New User</button>
+//                 }
+//             >
+//                 <ExpenseForm 
+//                     onSubmit={addExpense} 
+//                     date={entryDate} 
+//                     contacts={contacts}
+//                     formData={formData}
+//                     setFormData={setFormData}
+//                     setEntryDate={setEntryDate}
+//                     customerBalances={customerBalances}
+//                 />
+//                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 border rounded-lg bg-gray-50 my-4">
+//                     <div><label className="block text-sm font-medium text-gray-700">Filter Start Date</label><input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="input-field mt-1" /></div>
+//                     <div><label className="block text-sm font-medium text-gray-700">Filter End Date</label><input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="input-field mt-1" /></div>
+//                     <div className="flex items-end"><button onClick={() => {setStartDate(''); setEndDate('');}} className="btn-secondary w-full">Clear Filter</button></div>
+//                 </div>
+//                 <div className="mt-6">
+//                     <h3 className="text-lg font-semibold mb-2">Recorded Transactions</h3>
+//                     <DataTable 
+//                         headers={['Date', 'Name', 'Category', 'Description', 'Income', 'Expense', 'Method', 'Actions']} 
+//                         rows={filteredTransactions.map(t => {
+//                             const isIncome = t.type === 'income';
+//                             return [
+//                                 formatDate(t.date),
+//                                 t.name,
+//                                 t.category,
+//                                 t.description,
+//                                 isIncome ? formatCurrency(t.amount) : '-',
+//                                 !isIncome ? formatCurrency(t.amount) : '-',
+//                                 t.paymentMethod,
+//                                 <button
+//                                     onClick={() => !t.isFromSale && deleteExpense(t.id)}
+//                                     className={`btn-icon ${t.isFromSale ? 'text-gray-400 cursor-not-allowed' : 'text-red-600'}`}
+//                                     disabled={t.isFromSale}
+//                                     title={t.isFromSale ? "Cannot delete sale payments from this view" : "Delete transaction"}
+//                                 >
+//                                     <Trash2 size={18} />
+//                                 </button>
+//                             ];
+//                         })} 
+//                     />
+//                 </div>
+//             </Card>
+//             {isAddContactModalOpen && <AddContactModal onSave={handleNewContactSave} onClose={() => setIsAddContactModalOpen(false)} />}
+//         </>
+//     );
+// };
+
+// const ExpenseForm = ({ onSubmit, date, contacts, formData, setFormData, setEntryDate, customerBalances }) => {
+//     const { showNotification } = useNotification();
+
+//     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//         if (!date) {
+//             showNotification('Please select an entry date.', 'error');
+//             return;
+//         }
+
+//         const contact = contacts.find(c => c.name === formData.name);
+//         if (contact && formData.type === 'Sale') {
+//             const balance = customerBalances[contact.id];
+//             if (balance && parseFloat(formData.amount) > balance.due) {
+//                 showNotification(`Amount cannot be greater than the due amount of ${formatCurrency(balance.due)}`, 'error');
+//                 return;
+//             }
+//         }
+
+//         const expenseData = {
+//             date: date,
+//             category: formData.type === 'Sale' ? 'Misc. Income' : 'Misc. Expense',
+//             name: formData.name,
+//             amount: parseFloat(formData.amount),
+//             description: formData.description,
+//             paymentMethod: formData.paymentMethod
+//         };
+//         onSubmit(expenseData);
+//         setFormData({ type: 'Sale', name: '', amount: '', description: '', paymentMethod: 'Cash' });
+//     };
+
+//     return (
+//         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 border rounded-lg bg-gray-50 items-center">
+//              <input
+//                 type="date"
+//                 value={date}
+//                 onChange={e => setEntryDate(e.target.value)}
+//                 className="input-field md:col-span-2"
+//             />
+//             <select name="type" value={formData.type} onChange={handleChange} className="input-field md:col-span-2">
+//                 <option value="Sale">Receipt</option>
+//                 <option value="Purchase">Payment</option>
+//             </select>
+//             <select name="name" value={formData.name} onChange={handleChange} className="input-field md:col-span-2" required>
+//                 <option value="">Select Contact</option>
+//                 {contacts.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
+//             </select>
+//             <input type="number" name="amount" value={formData.amount} onWheel={e => e.target.blur()} onChange={handleChange} placeholder={formData.type === 'Sale' ? 'Amount Received' : 'Amount Paid'} className="input-field md:col-span-2" required />
+//             <select name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} className="input-field md:col-span-1">
+//                 <option value="Cash">Cash</option>
+//                 <option value="Online">Online</option>
+//             </select>
+//             <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" className="input-field md:col-span-2" required />
+//             <button type="submit" className="btn-primary md:col-span-1"><PlusCircle size={16} /></button>
+//         </form>
+//     );
+// };
+
+// const InvoicePage = ({ sale, customer, onBack }) => {
+//     if (!sale || !customer) return <div className="p-8 text-center">Loading invoice...</div>;
+//     const handlePrint = () => window.print();
+//     const safePayments = Array.isArray(sale.payments) ? sale.payments : [];
+//     const totalPaid = getTotalPaid(safePayments);
+//     const due = sale.total - totalPaid;
+
+//     return (
+//         <div className="bg-gray-100 p-8 min-h-screen">
+//             <div className="max-w-4xl mx-auto bg-white p-10 rounded-lg shadow-xl">
+//                 <div className="flex justify-between items-start mb-8"><div><h1 className="text-3xl font-bold text-gray-800">INVOICE</h1><p className="text-gray-500">Invoice #: {sale.id}</p><p className="text-gray-500">Date: {formatDate(sale.date)}</p></div><div className="text-right"><h2 className="text-2xl font-semibold text-gray-700">Fuel Station</h2><p className="text-gray-500">123 Highway Rd, Vijayawada, AP</p><p className="text-gray-500">GSTIN: YOURGSTINHERE</p></div></div>
+//                 <div className="mb-8 border-t pt-4"><h3 className="font-semibold text-gray-600">Bill To:</h3><p className="text-lg font-bold text-gray-800">{customer?.name || "N/A"}</p><p className="text-gray-500">{customer?.contact}</p><p className="text-gray-500">{customer?.address}</p>{customer?.gstin && <p className="text-gray-500">GSTIN: {customer.gstin}</p>}</div>
+//                 <table className="w-full mb-8"><thead><tr className="bg-gray-200 text-left text-gray-600 uppercase text-sm"><th className="py-3 px-4">Description</th><th className="py-3 px-4">Vehicle No.</th><th className="py-3 px-4 text-right">Quantity (L)</th><th className="py-3 px-4 text-right">Rate</th><th className="py-3 px-4 text-right">Amount</th></tr></thead><tbody><tr className="border-b"><td className="py-4 px-4 font-medium">{sale.fuelType}</td><td className="py-4 px-4">{sale.vehicleNumber || 'N/A'}</td><td className="py-4 px-4 text-right">{sale.quantity.toLocaleString()}</td><td className="py-4 px-4 text-right">{formatCurrency(sale.pricePerLiter)}</td><td className="py-4 px-4 text-right">{formatCurrency(sale.total)}</td></tr></tbody></table>
+//                 <div className="flex justify-between items-start">
+//                     <div>
+//                         <h4 className="font-semibold text-gray-600">Payment History:</h4>
+//                         {safePayments.length > 0 ? (
+//                             <ul className="text-sm text-gray-700">
+//                                 {safePayments.map((p, i) => (
+//                                     <li key={i}>{formatDate(p.date)} - {formatCurrency(p.amount)} ({p.paymentMethod}) {p.transactionId && `- Ref: ${p.transactionId}`}</li>
+//                                 ))}
+//                             </ul>
+//                         ) : <p className="text-gray-500">No payments recorded.</p>}
+//                     </div>
+//                     <div className="w-full md:w-1/3 text-right">
+//                         <div className="flex justify-between text-gray-700"><span className="font-semibold">Subtotal:</span><span>{formatCurrency(sale.total)}</span></div>
+//                         <div className="flex justify-between text-gray-700 mt-2"><span className="font-semibold">Total Paid:</span><span>{formatCurrency(totalPaid)}</span></div>
+//                         <div className="flex justify-between text-xl font-bold text-gray-800 mt-4 border-t-2 pt-2"><span>DUE:</span><span>{formatCurrency(due)}</span></div>
+//                     </div>
+//                 </div>
+//                 <div className="mt-12 text-center text-gray-500 text-sm"><p>Thank you for your business!</p></div>
+//                 <div className="mt-8 flex gap-4 justify-center print:hidden"><button onClick={onBack} className="btn-secondary">Back</button><button onClick={handlePrint} className="btn-primary"><Printer size={16} /> Print / Save PDF</button></div>
+//             </div>
+//             <style>{`@media print { .print\\:hidden { display: none; } }`}</style>
+//         </div>
+//     );
+// };
+
+// const Reports = () => {
+//     const { sales, expenses, contacts, stock, exportToExcel } = useContext(AppContext);
+//     const [startDate, setStartDate] = useState('');
+//     const [endDate, setEndDate] = useState('');
+
+//     const handleComprehensiveExport = () => {
+//         // 1. Prepare Purchases Data
+//         const purchasesHeaders = ['Date', 'Supplier', 'Fuel Type', 'Quantity (L)', 'Total Cost', 'Paid', 'Dues to be Payed'];
+//         const purchasesData = stock.map(s => {
+//             const totalPaid = getTotalPaid(s.payments);
+//             return [
+//                 formatDate(s.date),
+//                 s.supplier,
+//                 s.type,
+//                 s.quantity,
+//                 s.total,
+//                 totalPaid,
+//                 s.total - totalPaid
+//             ];
+//         });
+//         const totalPurchaseCost = stock.reduce((acc, s) => acc + s.total, 0);
+//         const totalPurchasePaid = stock.reduce((acc, s) => acc + getTotalPaid(s.payments), 0);
+//         const totalPurchaseDue = totalPurchaseCost - totalPurchasePaid;
+//         const purchasesTotalRow = ['', '', '', 'Total:', totalPurchaseCost, totalPurchasePaid, totalPurchaseDue];
+
+//         // 2. Prepare Sales Data
+//         const salesHeaders = ['Date', 'Customer', 'Fuel Type', 'Quantity (L)', 'Total Bill', 'Paid', 'Dues to be Get'];
+//         const salesData = sales.map(s => {
+//             const customer = contacts.find(c => c.id === s.customerId);
+//             const totalPaid = getTotalPaid(s.payments);
+//             return [
+//                 formatDate(s.date),
+//                 customer ? customer.name : 'N/A',
+//                 s.fuelType,
+//                 s.quantity,
+//                 s.total,
+//                 totalPaid,
+//                 s.total - totalPaid
+//             ];
+//         });
+//         const totalSalesValue = sales.reduce((acc, s) => acc + s.total, 0);
+//         const totalSalesPaid = sales.reduce((acc, s) => acc + getTotalPaid(s.payments), 0);
+//         const totalSalesDue = totalSalesValue - totalSalesPaid;
+//         const salesTotalRow = ['', '', '', 'Total:', totalSalesValue, totalSalesPaid, totalSalesDue];
+        
+//         // 3. Prepare Summary Data
+//         const summaryHeaders = ['Overall Summary', 'Amount'];
+//         const summaryData = [
+//             ['Total Sales Value', totalSalesValue],
+//             ['Total Sales Received', totalSalesPaid],
+//             ['Total Purchase Cost', totalPurchaseCost],
+//             ['Total Paid for Purchases', totalPurchasePaid],
+//             ['Net Profit/Loss (based on payments)', totalSalesPaid - totalPurchasePaid]
+//         ];
+
+//         // 4. Create Excel Workbook and a single Sheet
+//         if (typeof window.XLSX === 'undefined') {
+//             alert('Excel export library is loading. Please try again in a moment.');
+//             return;
+//         }
+//         try {
+//             const wb = window.XLSX.utils.book_new();
+//             const ws = window.XLSX.utils.aoa_to_sheet([[]]); // Create an empty sheet
+//             let currentRow = 1;
+
+//             // Add Purchases section
+//             window.XLSX.utils.sheet_add_aoa(ws, [['PURCHASES']], {origin: `A${currentRow}`});
+//             currentRow += 2;
+//             window.XLSX.utils.sheet_add_aoa(ws, [purchasesHeaders], {origin: `A${currentRow}`});
+//             currentRow += 1;
+//             window.XLSX.utils.sheet_add_aoa(ws, purchasesData, {origin: `A${currentRow}`});
+//             currentRow += purchasesData.length;
+//             window.XLSX.utils.sheet_add_aoa(ws, [purchasesTotalRow], {origin: `A${currentRow}`});
+//             currentRow += 2; // Add a blank row
+
+//             // Add Sales section
+//             window.XLSX.utils.sheet_add_aoa(ws, [['SALES']], {origin: `A${currentRow}`});
+//             currentRow += 2;
+//             window.XLSX.utils.sheet_add_aoa(ws, [salesHeaders], {origin: `A${currentRow}`});
+//             currentRow += 1;
+//             window.XLSX.utils.sheet_add_aoa(ws, salesData, {origin: `A${currentRow}`});
+//             currentRow += salesData.length;
+//             window.XLSX.utils.sheet_add_aoa(ws, [salesTotalRow], {origin: `A${currentRow}`});
+//             currentRow += 3; // Add some blank rows
+
+//             // Add Summary section
+//             window.XLSX.utils.sheet_add_aoa(ws, [summaryHeaders], {origin: `A${currentRow}`});
+//             currentRow += 1;
+//             window.XLSX.utils.sheet_add_aoa(ws, summaryData, {origin: `A${currentRow}`});
+
+//             window.XLSX.utils.book_append_sheet(wb, ws, 'Comprehensive Report');
+            
+//             // 5. Download the file
+//             window.XLSX.writeFile(wb, `comprehensive_report_${new Date().toISOString().split('T')[0]}.xlsx`);
+//         } catch (error) {
+//             console.error("Comprehensive export failed:", error);
+//             alert('Failed to export data.');
+//         }
+//     };
+
+//     const handleExport = (dataType) => {
+//         const start = startDate ? new Date(startDate) : null;
+//         const end = endDate ? new Date(endDate) : null;
+//         if(start) start.setHours(0,0,0,0);
+//         if(end) end.setHours(23,59,59,999);
+
+//         let dataToExport;
+//         let fileName;
+
+//         if (dataType === 'sales') {
+//             dataToExport = sales
+//                 .filter(s => {
+//                     if (!start && !end) return true;
+//                     const saleDate = new Date(s.date);
+//                     if (start && end) return saleDate >= start && saleDate <= end;
+//                     if (start) return saleDate >= start;
+//                     if (end) return saleDate <= end;
+//                     return true;
+//                 })
+//                 .map(s => {
+//                     const customer = contacts.find(c => c.id === s.customerId);
+//                     const totalPaid = getTotalPaid(s.payments);
+//                     const due = s.total - totalPaid;
+//                     return {
+//                         Date: formatDate(s.date),
+//                         Customer: customer ? customer.name : 'N/A',
+//                         'Vehicle Number': s.vehicleNumber || 'N/A',
+//                         'Fuel Type': s.fuelType,
+//                         'Quantity (L)': s.quantity,
+//                         'Total Bill': s.total,
+//                         'Paid': totalPaid,
+//                         'Due': due,
+//                     };
+//                 });
+//             fileName = 'sales_report';
+//         } else {
+//             dataToExport = expenses
+//                 .filter(e => {
+//                     if (!start && !end) return true;
+//                     const expenseDate = new Date(e.date);
+//                     if (start && end) return expenseDate >= start && expenseDate <= end;
+//                     if (start) return expenseDate >= start;
+//                     if (end) return expenseDate <= end;
+//                     return true;
+//                 })
+//                 .map(e => ({
+//                     Date: formatDate(e.date),
+//                     Category: e.category,
+//                     Description: e.description,
+//                     Amount: e.amount
+//                 }));
+//             fileName = 'expenses_report';
+//         }
+//         exportToExcel(dataToExport, `${fileName}_${startDate}_to_${endDate}`);
+//     };
+
+//     return (
+//         <Card title="Reports Center">
+//              <div className="mb-6">
+//                 <button onClick={handleComprehensiveExport} className="btn-primary w-full md:w-auto"><FileDown size={16}/> Export All Data</button>
+//             </div>
+//             <h3 className="text-lg font-semibold mb-2 text-gray-700">Generate Date-wise Reports</h3>
+//             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 border rounded-lg bg-gray-50">
+//                 <div>
+//                     <label className="block text-sm font-medium text-gray-700">Start Date</label>
+//                     <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="input-field mt-1" />
+//                 </div>
+//                 <div>
+//                     <label className="block text-sm font-medium text-gray-700">End Date</label>
+//                     <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="input-field mt-1" />
+//                 </div>
+//                 <div className="flex items-end">
+//                     <button onClick={() => handleExport('sales')} className="btn-primary w-full"><FileDown size={16}/> Export Sales</button>
+//                 </div>
+//                 <div className="flex items-end">
+//                     <button onClick={() => handleExport('expenses')} className="btn-primary w-full"><FileDown size={16}/> Export Expenses</button>
+//                 </div>
+//             </div>
+//         </Card>
+//     );
+// };
+
+
+// const DailyClosing = () => {
+//     const { dailySummary, fuelStockSummary } = useContext(AppContext);
+//     const handleSendReport = () => {
+//         const summaryText = `\n*Daily Closing Report - ${new Date().toLocaleDateString('en-IN')}*\n\n*Sales Summary:*\n- Total Sales: ${formatCurrency(dailySummary.sales)}\n\n*Expense Summary:*\n- Total Expenses: ${formatCurrency(dailySummary.expenses)}\n\n*Closing Stock:*\n- Petrol: ${fuelStockSummary.petrol.toLocaleString()} L\n- Diesel: ${fuelStockSummary.diesel.toLocaleString()} L\n\nThis is an automated report.`;
+//         window.open(`https://wa.me/?text=${encodeURIComponent(summaryText)}`, '_blank');
+//     };
+//     return (
+//         <Card title="Daily Closing">
+//             <div className="p-4 bg-gray-50 rounded-lg">
+//                 <h3 className="font-semibold text-lg mb-4">Today's Summary</h3>
+//                 <div className="space-y-2">
+//                     <div className="flex justify-between"><span>Total Sales:</span> <span className="font-bold text-green-600">{formatCurrency(dailySummary.sales)}</span></div>
+//                     <div className="flex justify-between"><span>Total Expenses:</span> <span className="font-bold text-red-600">{formatCurrency(dailySummary.expenses)}</span></div>
+//                     <div className="flex justify-between pt-2 border-t mt-2"><span>Net:</span> <span className="font-bold">{formatCurrency(dailySummary.sales - dailySummary.expenses)}</span></div>
+//                 </div>
+//                  <div className="mt-4 pt-4 border-t">
+//                     <h3 className="font-semibold text-lg mb-2">Closing Stock</h3>
+//                     <div className="space-y-2">
+//                         <div className="flex justify-between"><span>Petrol:</span> <span className="font-bold">{fuelStockSummary.petrol.toLocaleString()} L</span></div>
+//                         <div className="flex justify-between"><span>Diesel:</span> <span className="font-bold">{fuelStockSummary.diesel.toLocaleString()} L</span></div>
+//                     </div>
+//                 </div>
+//                 <button onClick={handleSendReport} className="btn-primary w-full mt-6">Send Closing Report (via WhatsApp)</button>
+//             </div>
+//         </Card>
+//     );
+// };
+
+// const SettingsPage = () => (<Card title="Settings"><p className="text-gray-600">This page is a placeholder for future application settings.</p></Card>);
+
+// // --- MODAL COMPONENTS ---
+// const Modal = ({ children, title, onClose, size = 'max-w-md' }) => (
+//     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-4">
+//         <div className={`bg-white rounded-lg shadow-xl w-full ${size}`}>
+//             <div className="flex justify-between items-center p-4 border-b"><h3 className="text-lg font-semibold">{title}</h3><button onClick={onClose} className="btn-icon"><X size={20} /></button></div>
+//             <div className="p-4 max-h-[80vh] overflow-y-auto">{children}</div>
+//         </div>
+//     </div>
+// );
+
+// const NewSaleModal = ({ onClose }) => {
+//     const { contacts, addContact, addSale } = useContext(AppContext);
+//     const [formData, setFormData] = useState({ customerId: '', date: new Date().toISOString().split('T')[0], fuelType: 'Petrol', quantity: 0, pricePerLiter: 0, paid: 0, paymentMethod: 'Cash', transactionId: '', chequeNumber: '', vehicleNumber: '' });
+//     const [isAddContactModalOpen, setIsAddContactModalOpen] = useState(false);
+
+//     const total = formData.quantity * formData.pricePerLiter;
+//     const due = total - formData.paid;
+
+//     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+    
+//     const handleNewContactSave = (contactData) => {
+//         const newContact = addContact({...contactData, type: 'Customer'});
+//         if (newContact) {
+//             setIsAddContactModalOpen(false);
+//             setFormData({...formData, customerId: newContact.id });
+//         }
+//     };
+
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//         const initialPaymentAmount = parseFloat(formData.paid) || 0;
+//         const saleData = {
+//             ...formData,
+//             quantity: parseFloat(formData.quantity) || 0,
+//             pricePerLiter: parseFloat(formData.pricePerLiter) || 0,
+//             total: total,
+//             customerId: parseInt(formData.customerId),
+//             payments: initialPaymentAmount > 0 ? [{
+//                 amount: initialPaymentAmount,
+//                 date: formData.date,
+//                 paymentMethod: formData.paymentMethod,
+//                 transactionId: formData.transactionId,
+//                 chequeNumber: formData.chequeNumber
+//             }] : []
+//         };
+//         delete saleData.paid; // Remove old paid property
+//         addSale(saleData);
+//         onClose();
+//     };
+
+//     return (
+//         <>
+//             <Modal title="Record New Sale" onClose={onClose} size="max-w-2xl">
+//                 <form onSubmit={handleSubmit} className="space-y-4">
+//                     {/* Customer and Vehicle Number */}
+//                     <div>
+//                         <label className="block text-sm font-medium text-gray-700">Customer</label>
+//                         <div className="flex items-center gap-2 mt-1">
+//                             <select name="customerId" value={formData.customerId} onChange={handleChange} className="input-field" required>
+//                                 <option value="">Select Bulk Customer</option>
+//                                 {contacts.filter(c => c.type === 'Customer' || c.type === 'Both').map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+//                             </select>
+//                             <button type="button" onClick={() => setIsAddContactModalOpen(true)} className="btn-secondary flex-shrink-0"><UserPlus size={16} /><span>New</span></button>
+//                         </div>
+//                     </div>
+//                     <div><label className="block text-sm font-medium text-gray-700">Vehicle Number (Optional)</label><input type="text" name="vehicleNumber" value={formData.vehicleNumber} onChange={handleChange} className="input-field mt-1" /></div>
+                    
+//                     {/* Date, Fuel, Quantity, Price */}
+//                     <div className="grid grid-cols-2 gap-4">
+//                         <div><label className="block text-sm font-medium text-gray-700">Date</label><input type="date" name="date" value={formData.date} onChange={handleChange} className="input-field mt-1" required /></div>
+//                         <div><label className="block text-sm font-medium text-gray-700">Fuel Type</label><select name="fuelType" value={formData.fuelType} onChange={handleChange} className="input-field mt-1"><option>Petrol</option><option>Diesel</option></select></div>
+//                         <div><label className="block text-sm font-medium text-gray-700">Quantity (L)</label><input type="number" name="quantity" value={formData.quantity} onWheel={e => e.target.blur()} onChange={handleChange} className="input-field mt-1" required /></div>
+//                         <div><label className="block text-sm font-medium text-gray-700">Price / Liter</label><input type="number" name="pricePerLiter" value={formData.pricePerLiter} onWheel={e => e.target.blur()} onChange={handleChange} className="input-field mt-1" required /></div>
+//                     </div>
+
+//                     <div className="p-2 bg-gray-100 rounded-md text-right font-bold">Total Bill: {formatCurrency(total)}</div>
+                    
+//                     {/* Payment Details */}
+//                     <div><label className="block text-sm font-medium text-gray-700">Amount Paid Now</label><input type="number" name="paid" value={formData.paid} onWheel={e => e.target.blur()} onChange={handleChange} className="input-field mt-1" required /></div>
+//                     <div><label className="block text-sm font-medium text-gray-700">Payment Method</label><select name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} className="input-field mt-1"><option>Cash</option><option>Card</option><option>Cheque</option><option>UPI</option><option>Internet Banking</option></select></div>
+//                     {(formData.paymentMethod === 'Card' || formData.paymentMethod === 'Internet Banking' || formData.paymentMethod === 'UPI') && <div><label className="block text-sm font-medium text-gray-700">Transaction ID / Reference</label><input type="text" name="transactionId" value={formData.transactionId} onChange={handleChange} className="input-field mt-1" /></div>}
+//                     {formData.paymentMethod === 'Cheque' && <div><label className="block text-sm font-medium text-gray-700">Cheque Number</label><input type="text" name="chequeNumber" value={formData.chequeNumber} onChange={handleChange} className="input-field mt-1" /></div>}
+
+//                     <div className="p-2 bg-red-100 text-red-700 rounded-md text-right font-bold">Amount Due: {formatCurrency(due)}</div>
+//                     <div className="flex justify-end pt-4"><button type="submit" className="btn-primary">Save Sale & Generate Invoice</button></div>
+//                 </form>
+//             </Modal>
+//             {isAddContactModalOpen && <AddContactModal onSave={handleNewContactSave} onClose={() => setIsAddContactModalOpen(false)} contactType="Customer" />}
+//         </>
+//     );
+// };
+
+// const AddContactModal = ({ onSave, onClose, contactType: initialType }) => {
+//     const { contacts } = useContext(AppContext);
+//     const [formData, setFormData] = useState({ name: '', contact: '', gstin: '', address: '', type: initialType || 'Customer' });
+//     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+//     const handleSubmit = (e) => { 
+//         e.preventDefault(); 
+//         onSave(formData); 
+//     };
+//     return (
+//         <Modal title="Add New Customer / Supplier" onClose={onClose}>
+//             <form onSubmit={handleSubmit} className="space-y-4">
+//                 <div><label className="block text-sm font-medium text-gray-700">Name</label><input type="text" name="name" value={formData.name} onChange={handleChange} className="input-field mt-1" required autoFocus /></div>
+//                 <div><label className="block text-sm font-medium text-gray-700">Contact</label><input type="text" name="contact" value={formData.contact} onChange={handleChange} className="input-field mt-1" /></div>
+//                 <div><label className="block text-sm font-medium text-gray-700">Address</label><textarea name="address" value={formData.address} onChange={handleChange} className="input-field mt-1" /></div>
+//                 <div><label className="block text-sm font-medium text-gray-700">GSTIN (Optional)</label><input type="text" name="gstin" value={formData.gstin} onChange={handleChange} className="input-field mt-1" /></div>
+//                 <div>
+//                     <label className="block text-sm font-medium text-gray-700">Contact Type</label>
+//                     <select name="type" value={formData.type} onChange={handleChange} className="input-field mt-1">
+//                         <option value="Customer">Customer</option>
+//                         <option value="Supplier">Supplier</option>
+//                         <option value="Both">Both</option>
+//                     </select>
+//                 </div>
+//                 <div className="flex justify-end pt-4"><button type="submit" className="btn-primary">Save Contact</button></div>
+//             </form>
+//         </Modal>
+//     );
+// };
+
+// const CustomerLedgerModal = ({ customer, onClose }) => {
+//     const { sales, expenses } = useContext(AppContext);
+//     const [startDate, setStartDate] = useState('');
+//     const [endDate, setEndDate] = useState('');
+//     const [showLedger, setShowLedger] = useState(false);
+
+//     const ledgerData = useMemo(() => {
+//         if (!startDate || !endDate) return [];
+
+//         const start = new Date(startDate);
+//         start.setHours(0,0,0,0);
+//         const end = new Date(endDate);
+//         end.setHours(23,59,59,999);
+
+//         // 1. Get all sales as debits
+//         const salesDebits = sales
+//             .filter(s => s.customerId === customer.id)
+//             .map(s => ({
+//                 date: s.date,
+//                 description: `Fuel Sale (${s.fuelType}) - Bill #${s.id}`,
+//                 debit: s.total,
+//                 credit: 0
+//             }));
+
+//         // 2. Get all payments from within sales objects as credits
+//         const salesInternalPayments = sales
+//             .filter(s => s.customerId === customer.id)
+//             .flatMap(s => (s.payments || []).map(p => ({
+//                 date: p.date,
+//                 description: `Payment for Bill #${s.id}`,
+//                 debit: 0,
+//                 credit: p.amount
+//             })));
+
+//         // 3. Get all misc income from expenses as credits
+//         const miscIncomePayments = expenses
+//             .filter(e => e.name === customer.name && e.category === 'Misc. Income')
+//             .map(e => ({
+//                 date: e.date,
+//                 description: `Payment Received - ${e.description}`,
+//                 debit: 0,
+//                 credit: e.amount
+//             }));
+            
+//         // 4. Combine, filter by date, and sort
+//         const combined = [...salesDebits, ...salesInternalPayments, ...miscIncomePayments]
+//             .filter(t => {
+//                 const transDate = new Date(t.date);
+//                 return transDate >= start && transDate <= end;
+//             })
+//             .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+//         // 5. Calculate running balance
+//         let runningBalance = 0;
+//         return combined.map(item => {
+//             runningBalance += item.debit - item.credit;
+//             return { ...item, balance: runningBalance };
+//         });
+
+//     }, [sales, expenses, customer, startDate, endDate]);
+
+//     const totalDebit = ledgerData.reduce((acc, item) => acc + item.debit, 0);
+//     const totalCredit = ledgerData.reduce((acc, item) => acc + item.credit, 0);
+//     const finalBalance = totalDebit - totalCredit;
+
+//     return (
+//         <Modal title={`Ledger for ${customer.name}`} onClose={onClose} size="max-w-6xl">
+//             <div className="p-4 bg-gray-50 rounded-lg">
+//                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+//                     <div>
+//                         <label className="label">Start Date</label>
+//                         <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="input-field"/>
+//                     </div>
+//                     <div>
+//                         <label className="label">End Date</label>
+//                         <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="input-field"/>
+//                     </div>
+//                     <button onClick={() => setShowLedger(true)} className="btn-primary w-full" disabled={!startDate || !endDate}>Generate Ledger</button>
+//                 </div>
+//             </div>
+
+//             {showLedger && (
+//                  <div className="mt-6">
+//                     <h3 className="text-lg font-semibold mb-2">Transactions from {formatDate(startDate)} to {formatDate(endDate)}</h3>
+//                     <div className="overflow-x-auto">
+//                         <table className="w-full text-sm text-left text-gray-500">
+//                             <thead className="text-xs text-gray-700 uppercase bg-gray-100">
+//                                 <tr>
+//                                     <th className="px-6 py-3">Date</th>
+//                                     <th className="px-6 py-3">Description</th>
+//                                     <th className="px-6 py-3 text-right">Debit</th>
+//                                     <th className="px-6 py-3 text-right">Credit</th>
+//                                     <th className="px-6 py-3 text-right">Balance</th>
+//                                 </tr>
+//                             </thead>
+//                             <tbody>
+//                                 {ledgerData.map((item, i) => (
+//                                     <tr key={i} className="bg-white border-b hover:bg-gray-50">
+//                                         <td className="px-6 py-4">{formatDate(item.date)}</td>
+//                                         <td className="px-6 py-4">{item.description}</td>
+//                                         <td className="px-6 py-4 text-right text-red-600">{item.debit > 0 ? formatCurrency(item.debit) : '-'}</td>
+//                                         <td className="px-6 py-4 text-right text-green-600">{item.credit > 0 ? formatCurrency(item.credit) : '-'}</td>
+//                                         <td className="px-6 py-4 text-right font-semibold">{formatCurrency(item.balance)}</td>
+//                                     </tr>
+//                                 ))}
+//                             </tbody>
+//                             <tfoot className="font-semibold bg-gray-100">
+//                                 <tr>
+//                                     <td colSpan="2" className="px-6 py-3 text-right">Totals:</td>
+//                                     <td className="px-6 py-3 text-right text-red-600">{formatCurrency(totalDebit)}</td>
+//                                     <td className="px-6 py-3 text-right text-green-600">{formatCurrency(totalCredit)}</td>
+//                                     <td className="px-6 py-3"></td>
+//                                 </tr>
+//                                 <tr>
+//                                     <td colSpan="4" className="px-6 py-3 text-right text-lg">Final Balance:</td>
+//                                     <td className="px-6 py-3 text-right text-lg font-bold">{formatCurrency(finalBalance)}</td>
+//                                 </tr>
+//                             </tfoot>
+//                         </table>
+//                     </div>
+//                  </div>
+//             )}
+//         </Modal>
+//     );
+// };
+
+// const PaymentModal = ({ sale, customer, onClose }) => {
+//     const { addPayment } = useContext(AppContext);
+    
+//     // Hooks are called at the top level
+//     const [formData, setFormData] = useState({
+//         amount: 0,
+//         date: new Date().toISOString().split('T')[0],
+//         paymentMethod: 'Cash',
+//         transactionId: '',
+//         chequeNumber: ''
+//     });
+
+//     // Effect to update state when props change
+//     useEffect(() => {
+//         if (sale) {
+//             const totalPaid = getTotalPaid(sale.payments);
+//             const initialDue = sale.total - totalPaid;
+//             setFormData(prev => ({ ...prev, amount: initialDue }));
+//         }
+//     }, [sale]);
+
+//     // Early return after hooks
+//     if (!sale || !customer) return null;
+
+//     const totalPaid = getTotalPaid(sale.payments);
+//     const initialDue = sale.total - totalPaid;
+    
+//     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+    
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//         const paymentData = {
+//             ...formData,
+//             amount: parseFloat(formData.amount)
+//         };
+//         if (paymentData.amount > 0 && paymentData.amount <= initialDue) {
+//             addPayment(sale.id, paymentData);
+//         } else {
+//             alert("Payment amount must be greater than zero and not more than the due amount.");
+//         }
+//     };
+
+//     return (
+//         <Modal title={`Add Payment for ${customer.name}`} onClose={onClose} size="max-w-lg">
+//             <form onSubmit={handleSubmit} className="space-y-4">
+//                 <div className="p-4 bg-gray-100 rounded-lg">
+//                     <div className="flex justify-between"><span>Invoice Total:</span><span className="font-semibold">{formatCurrency(sale.total)}</span></div>
+//                     <div className="flex justify-between"><span>Already Paid:</span><span className="font-semibold text-green-600">{formatCurrency(totalPaid)}</span></div>
+//                     <div className="flex justify-between mt-2 pt-2 border-t text-lg"><span>Amount Due:</span><span className="font-bold text-red-600">{formatCurrency(initialDue)}</span></div>
+//                 </div>
+//                 <div><label className="label">Payment Amount</label><input type="number" name="amount" value={formData.amount} onChange={handleChange} className="input-field" max={initialDue} required /></div>
+//                 <div><label className="label">Payment Date</label><input type="date" name="date" value={formData.date} onChange={handleChange} className="input-field" required /></div>
+//                 <div><label className="label">Payment Method</label><select name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} className="input-field"><option>Cash</option><option>Card</option><option>Cheque</option><option>UPI</option><option>Internet Banking</option></select></div>
+//                 {(formData.paymentMethod === 'Card' || formData.paymentMethod === 'Internet Banking' || formData.paymentMethod === 'UPI') && <div><label className="label">Transaction ID / Reference</label><input type="text" name="transactionId" value={formData.transactionId} onChange={handleChange} className="input-field" /></div>}
+//                 {formData.paymentMethod === 'Cheque' && <div><label className="label">Cheque Number</label><input type="text" name="chequeNumber" value={formData.chequeNumber} onChange={handleChange} className="input-field" /></div>}
+//                 <div className="flex justify-end pt-4"><button type="submit" className="btn-primary">Record Payment</button></div>
+//             </form>
+//         </Modal>
+//     );
+// };
+
+// const PaymentConfirmationModal = ({ info, onClose }) => {
+//     const { setSelectedInvoice } = useContext(AppContext);
+
+//     if (!info || !info.sale || !info.customer) return null;
+    
+//     const { sale, customer, paymentAmount } = info;
+
+//     const handleSendWhatsApp = () => {
+//         const message = `Dear ${customer.name},\n\nThank you for your payment of ${formatCurrency(paymentAmount)} for invoice #${sale.id}.\n\nYour updated due amount is ${formatCurrency(sale.total - getTotalPaid(sale.payments))}.\n\nThank you,\nFuel Station`;
+//         window.open(`https://wa.me/${customer.contact}?text=${encodeURIComponent(message)}`, '_blank');
+//     };
+
+//     const handleGenerateReceipt = () => {
+//         onClose();
+//         setSelectedInvoice(sale);
+//     };
+
+//     return (
+//         <Modal title="Payment Successful" onClose={onClose} size="max-w-md">
+//             <div className="text-center">
+//                 <p className="text-lg mb-2">Successfully recorded a payment of <span className="font-bold text-green-600">{formatCurrency(paymentAmount)}</span> for {customer.name}.</p>
+//                 <div className="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+//                     <button onClick={handleGenerateReceipt} className="btn-primary"><Printer size={16} /> Generate Receipt</button>
+//                     <button onClick={handleSendWhatsApp} className="btn-secondary"><MessageSquare size={16} /> Send WhatsApp</button>
+//                 </div>
+//             </div>
+//         </Modal>
+//     );
+// };
+
+// const PaymentHistoryModal = ({ sale, onClose }) => {
+//     if (!sale) return null;
+//     const safePayments = Array.isArray(sale.payments) ? sale.payments : [];
+
+//     return (
+//         <Modal title="Payment History" onClose={onClose} size="max-w-2xl">
+//             <div className="space-y-2 mb-4">
+//                 <div className="flex justify-between font-bold"><span>Total Bill:</span><span>{formatCurrency(sale.total)}</span></div>
+//                 <div className="flex justify-between font-bold text-green-600"><span>Total Paid:</span><span>{formatCurrency(getTotalPaid(safePayments))}</span></div>
+//                 <div className="flex justify-between font-bold text-red-600"><span>Due:</span><span>{formatCurrency(sale.total - getTotalPaid(safePayments))}</span></div>
+//             </div>
+//             <DataTable
+//                 headers={['Date', 'Amount', 'Payment Method', 'Reference']}
+//                 rows={safePayments.map(p => [
+//                     formatDate(p.date),
+//                     formatCurrency(p.amount),
+//                     p.paymentMethod,
+//                     p.transactionId || p.chequeNumber || 'N/A'
+//                 ])}
+//             />
+//             {safePayments.length === 0 && <p className="text-center text-gray-500 mt-4">No payments have been recorded for this invoice yet.</p>}
+//         </Modal>
+//     );
+// };
+
+// const CustomerBillsModal = ({ customer, sales, onClose }) => {
+//     const { setPaymentHistoryModalSale, setPaymentModalInfo, exportToExcel } = useContext(AppContext);
+//     const [startDate, setStartDate] = useState('');
+//     const [endDate, setEndDate] = useState('');
+
+//     const filteredSales = useMemo(() => {
+//         if (!startDate && !endDate) return sales;
+//         return sales.filter(s => {
+//             const saleDate = new Date(s.date);
+//             const start = startDate ? new Date(startDate) : null;
+//             const end = endDate ? new Date(endDate) : null;
+//             if(start) start.setHours(0,0,0,0);
+//             if(end) end.setHours(23,59,59,999);
+//             if (start && end) return saleDate >= start && saleDate <= end;
+//             if (start) return saleDate >= start;
+//             if (end) return saleDate <= end;
+//             return true;
+//         });
+//     }, [sales, startDate, endDate]);
+
+//     const handleExport = () => {
+//         const dataToExport = filteredSales.map(s => {
+//             const totalPaid = getTotalPaid(s.payments);
+//             const due = s.total - totalPaid;
+//             return {
+//                 'Date': formatDate(s.date),
+//                 'Total Bill': s.total,
+//                 'Paid': totalPaid,
+//                 'Due': due,
+//             };
+//         });
+//         exportToExcel(dataToExport, `bills_${customer.name}`);
+//     };
+
+//     return (
+//         <Modal title={`Bills for ${customer.name}`} onClose={onClose} size="max-w-4xl">
+//             <div className="flex justify-between items-center mb-4">
+//                 <div className="flex items-center gap-2">
+//                     <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="input-field" />
+//                     <span className="text-gray-500">to</span>
+//                     <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="input-field" />
+//                     <button onClick={() => {setStartDate(''); setEndDate('')}} className="btn-secondary">Clear</button>
+//                 </div>
+//                 <button onClick={handleExport} className="btn-secondary"><FileDown size={16}/> Export Bills</button>
+//             </div>
+//             <DataTable
+//                 headers={['Date', 'Total Bill', 'Paid', 'Due', 'Actions']}
+//                 rows={filteredSales.map(s => {
+//                     const totalPaid = getTotalPaid(s.payments);
+//                     const due = s.total - totalPaid;
+//                     return [
+//                         formatDate(s.date),
+//                         formatCurrency(s.total),
+//                         formatCurrency(totalPaid),
+//                         <span className={`font-bold ${due > 0 ? 'text-red-600' : 'text-green-600'}`}>{formatCurrency(due)}</span>,
+//                         <div className="flex items-center gap-2">
+//                             <button onClick={() => {onClose(); setPaymentHistoryModalSale(s);}} className="btn-secondary py-1 px-3 text-xs">View Details</button>
+//                             {due > 0 && <button onClick={() => {onClose(); setPaymentModalInfo({ sale: s, customer });}} className="btn-primary py-1 px-3 text-xs">Clear Due</button>}
+//                         </div>
+//                     ];
+//                 })}
+//             />
+//         </Modal>
+//     );
+// };
+
+// const PurchaseDetailsModal = ({ stockItem, onClose }) => {
+//     const { addPurchasePayment, exportToExcel } = useContext(AppContext);
+//     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+
+//     if (!stockItem) return null;
+
+//     const totalPaid = getTotalPaid(stockItem.payments);
+//     const due = stockItem.total - totalPaid;
+
+//     const handleSavePayment = (paymentDetails) => {
+//         addPurchasePayment(stockItem.id, paymentDetails);
+//         setIsPaymentModalOpen(false);
+//     };
+
+//     const handleExport = () => {
+//         const dataToExport = (stockItem.payments || []).map(p => ({
+//             'Date': formatDate(p.date),
+//             'Amount': p.amount,
+//             'Payment Method': p.paymentMethod
+//         }));
+//         exportToExcel(dataToExport, `purchase_history_${stockItem.supplier}_${stockItem.date}`);
+//     };
+
+//     return (
+//         <>
+//             <Modal title={`Purchase Details for ${stockItem.supplier}`} onClose={onClose} size="max-w-2xl">
+//                 <div className="flex justify-end mb-4">
+//                     <button onClick={handleExport} className="btn-secondary"><FileDown size={16}/> Export History</button>
+//                 </div>
+//                 <div className="space-y-2 mb-4">
+//                     <div className="flex justify-between font-bold"><span>Total Bill:</span><span>{formatCurrency(stockItem.total)}</span></div>
+//                     <div className="flex justify-between font-bold text-green-600"><span>Total Paid:</span><span>{formatCurrency(totalPaid)}</span></div>
+//                     <div className="flex justify-between font-bold text-red-600"><span>Due:</span><span>{formatCurrency(due)}</span></div>
+//                 </div>
+//                 <h4 className="font-semibold text-lg mt-4 mb-2">Payment History</h4>
+//                 <DataTable
+//                     headers={['Date', 'Amount', 'Payment Method']}
+//                     rows={(stockItem.payments || []).map(p => [
+//                         formatDate(p.date),
+//                         formatCurrency(p.amount),
+//                         p.paymentMethod
+//                     ])}
+//                 />
+//                 {due > 0 && (
+//                     <div className="flex justify-end mt-4">
+//                         <button onClick={() => setIsPaymentModalOpen(true)} className="btn-primary">Add Payment</button>
+//                     </div>
+//                 )}
+//             </Modal>
+//             {isPaymentModalOpen && <PurchasePaymentModal stockItem={stockItem} onClose={() => setIsPaymentModalOpen(false)} onSave={handleSavePayment} />}
+//         </>
+//     );
+// };
+
+// const PurchasePaymentModal = ({ stockItem, onClose, onSave }) => {
+//     const [formData, setFormData] = useState({ amount: 0, date: new Date().toISOString().split('T')[0], paymentMethod: 'Card' });
+
+//     useEffect(() => {
+//         if (stockItem) {
+//             const totalPaid = getTotalPaid(stockItem.payments);
+//             const due = stockItem.total - totalPaid;
+//             setFormData(prev => ({...prev, amount: due}));
+//         }
+//     }, [stockItem]);
+    
+//     const handleChange = (e) => {
+//         setFormData({...formData, [e.target.name]: e.target.value});
+//     };
+
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//         onSave({ ...formData, amount: parseFloat(formData.amount) });
+//         onClose();
+//     };
+
+//     if (!stockItem) return null;
+
+//     return (
+//         <Modal title={`Add Payment for ${stockItem.supplier}`} onClose={onClose} size="max-w-lg">
+//             <form onSubmit={handleSubmit} className="space-y-4">
+//                 <div><label className="label">Payment Amount</label><input type="number" name="amount" value={formData.amount} onChange={handleChange} className="input-field" required /></div>
+//                 <div><label className="label">Payment Date</label><input type="date" name="date" value={formData.date} onChange={handleChange} className="input-field" required /></div>
+//                 <div><label className="label">Payment Method</label><select name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} className="input-field"><option>Card</option><option>Cheque</option><option>UPI</option><option>Internet Banking</option></select></div>
+//                 <div className="flex justify-end pt-4"><button type="submit" className="btn-primary">Save Payment</button></div>
+//             </form>
+//         </Modal>
+//     );
+// };
+
+// const ConfirmationModal = ({ isOpen, onClose, onConfirm, title, message }) => {
+//     if (!isOpen) return null;
+
+//     return (
+//         <Modal title={title} onClose={onClose} size="max-w-md">
+//             <div className="text-center">
+//                 <p className="text-lg mb-4">{message}</p>
+//                 <div className="flex justify-center gap-4">
+//                     <button onClick={onClose} className="btn-secondary">Cancel</button>
+//                     <button onClick={onConfirm} className="btn-primary bg-red-600 hover:bg-red-700">Confirm</button>
+//                 </div>
+//             </div>
+//         </Modal>
+//     );
+// };
+
+
+// // --- REUSABLE UI COMPONENTS ---
+// const Card = ({ title, children, actionButton }) => (<div className="bg-white p-6 rounded-xl shadow-md"><div className="flex justify-between items-center mb-4 border-b pb-4"><h2 className="text-xl font-bold text-gray-800">{title}</h2>{actionButton}</div>{children}</div>);
+// const DataTable = ({ headers, rows }) => (<div className="overflow-x-auto"><table className="w-full text-sm text-left text-gray-500"><thead className="text-xs text-gray-700 uppercase bg-gray-50"><tr>{headers.map((h, i) => <th key={i} className="px-6 py-3">{h}</th>)}</tr></thead><tbody>{rows.map((row, i) => (<tr key={i} className="bg-white border-b hover:bg-gray-50">{row.map((cell, j) => <td key={j} className="px-6 py-4">{cell}</td>)}</tr>))}</tbody></table></div>);
+
+// // --- GLOBAL STYLES FALLBACK ---
+// const style = document.createElement('style');
+// style.textContent = `
+//     .input-field { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 0.375rem; transition: box-shadow 0.2s; }
+//     .input-field:focus { outline: none; box-shadow: 0 0 0 2px #3b82f6; }
+//     .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: #2563eb; color: white; font-weight: 600; border-radius: 0.375rem; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); transition: background-color 0.2s; }
+//     .btn-primary:hover { background-color: #1d4ed8; }
+//     .btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: #e5e7eb; color: #374151; font-weight: 600; border-radius: 0.375rem; transition: background-color 0.2s; }
+//     .btn-secondary:hover { background-color: #d1d5db; }
+//     .btn-icon { padding: 0.5rem; border-radius: 9999px; transition: background-color 0.2s; }
+//     .btn-icon:hover { background-color: #f3f4f6; }
+//     .label { display: block; text-sm font-medium text-gray-700 mb-1; }
+//     /* Hide arrows from number inputs */
+//     input[type=number]::-webkit-inner-spin-button,
+//     input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+//     input[type=number] { -moz-appearance: textfield; }
+// `;
+// document.head.append(style);
+
+// export default AppWrapper;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
