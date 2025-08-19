@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/FuelApp/static/css/main.31d6cfe0.css",
-    "main.js": "/FuelApp/static/js/main.7ede915d.js",
+    "main.js": "/FuelApp/static/js/main.45ca43d4.js",
     "static/js/453.26d87bb0.chunk.js": "/FuelApp/static/js/453.26d87bb0.chunk.js",
     "index.html": "/FuelApp/index.html",
-    "main.7ede915d.js.map": "/FuelApp/static/js/main.7ede915d.js.map",
+    "main.45ca43d4.js.map": "/FuelApp/static/js/main.45ca43d4.js.map",
     "453.26d87bb0.chunk.js.map": "/FuelApp/static/js/453.26d87bb0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.31d6cfe0.css",
-    "static/js/main.7ede915d.js"
+    "static/js/main.45ca43d4.js"
   ]
 }
